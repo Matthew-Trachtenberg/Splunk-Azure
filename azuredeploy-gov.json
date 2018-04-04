@@ -1,18 +1,16 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "1.2.5.0",
+  "contentVersion": "1.2.2.0",
   "parameters": {
     "location": {
       "type": "string",
+      "defaultValue": "usgovvirginia",
+      "allowedValues": [
+        "usgovvirginia",
+        "usgoviowa"
+      ],
       "metadata": {
         "description": "Location where resources will be provisioned"
-      }
-    },
-    "storageAccountType": {
-      "type": "string",
-      "defaultValue": "Standard_LRS",
-      "metadata": {
-        "description": "Storage account type which determines data redundancy and underlying drive type"
       }
     },
     "deploymentType": {
@@ -26,53 +24,11 @@
         "description": "Splunk deployment type"
       }
     },
-    "standaloneVmSize": {
-      "type": "string",
-      "defaultValue": "Standard_D3_v2",
-      "metadata": {
-        "description": "Size of standalone VM"
-      }
-    },
-    "clusterMasterVmSize": {
-      "type": "string",
-      "defaultValue": "Standard_D3_v2",
-      "metadata": {
-        "description": "Size of cluster master VM"
-      }
-    },
-    "clusterSearchheadVmSize": {
-      "type": "string",
-      "defaultValue": "Standard_D3_v2",
-      "metadata": {
-        "description": "Size of cluster search head VM"
-      }
-    },
-    "clusterIndexerVmSize": {
-      "type": "string",
-      "defaultValue": "Standard_D3_v2",
-      "metadata": {
-        "description": "Size of cluster indexer VM"
-      }
-    },
-    "clusterIndexerVmCount": {
-      "type": "int",
-      "defaultValue": 3,
-      "minValue": 3,
-      "maxValue": 30,
-      "metadata": {
-        "description": "Count of indexer nodes"
-      }
-    },
-    "clusterSecret": {
-      "type": "securestring",
-      "metadata": {
-        "description": "Security key for authentication between cluster nodes (when applicable)"
-      }
-    },
     "adminUsername": {
       "type": "string",
+      "defaultValue": "vmAdminName",
       "metadata": {
-        "description": "Username for the VMs"
+        "description": "User name for ssh into the VMs"
       }
     },
     "adminPassword": {
@@ -87,126 +43,45 @@
         "description": "Password for Splunk admin"
       }
     },
-    "virtualNetworkName": {
-      "type": "string",
-      "metadata": {
-        "description": "Name of the virtual network that the consumer wants to use"
-      }
-    },
-    "virtualNetworkNewOrExisting": {
-      "type": "string",
-      "defaultValue": "new",
-      "allowedValues": [
-        "new",
-        "existing"
-      ],
-      "metadata": {
-        "description": "Identifies whether to use new or existing Virtual Network"
-      }
-    },
-    "virtualNetworkExistingRGName": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "Name of resource group of existing Virtual Network (if applicable)"
-      }
-    },
-    "virtualNetworkAddressPrefix": {
-      "type": "string",
-      "defaultValue": "10.0.0.0/16",
-      "metadata": {
-        "description": "Virtual network address CIDR"
-      }
-    },
-    "subnet1Name": {
-      "type": "string",
-      "defaultValue": "shsubnet",
-      "metadata": {
-        "description": "Subnet for the Search Head"
-      }
-    },
-    "subnet2Name": {
-      "type": "string",
-      "defaultValue": "idxsubnet",
-      "metadata": {
-        "description": "Subnet for the Indexers"
-      }
-    },
-    "subnet1Prefix": {
-      "type": "string",
-      "defaultValue": "10.0.0.0/24",
-      "metadata": {
-        "description": "Search Head subnet CIDR"
-      }
-    },
-    "subnet2Prefix": {
-      "type": "string",
-      "defaultValue": "10.0.1.0/24",
-      "metadata": {
-        "description": "Indexer subnet CIDR"
-      }
-    },
-    "subnet1StartAddress": {
-      "type": "string",
-      "defaultValue": "10.0.0.20",
-      "metadata": {
-        "description": "Search Head subnet start address"
-      }
-    },
-    "subnet2StartAddress": {
-      "type": "string",
-      "defaultValue": "10.0.1.20",
-      "metadata": {
-        "description": "Indexer subnet start address"
-      }
-    },
-    "sshFrom": {
-      "type": "string",
-      "defaultValue": "0.0.0.0/0",
-      "metadata": {
-        "description": "CIDR block from which SSH access is allowed (default is ssh access from anywhere)"
-      }
-    },
-    "forwardedDataFrom": {
-      "type": "string",
-      "defaultValue": "0.0.0.0/0",
-      "metadata": {
-        "description": "CIDR block from which forwarded data is allowed (default is data can be received from anywhere)"
-      }
-    },
     "domainNamePrefix": {
       "type": "string",
+      "defaultValue": "change-me-to-something-unique",
       "metadata": {
         "description": "Prefix for domain name to access Splunk which is in the format: {prefix}.{location}.cloudapp.azure.com e.g. mysplunk.westus.cloudapp.azure.com. Prefix should match the following regular expression ^[a-z][a-z0-9-]{1,61}[a-z0-9]$ or it will raise an error."
-      }
-    },
-    "publicIPName": {
-      "type": "string",
-      "defaultValue": "splunksh-publicip",
-      "metadata": {
-        "description": "Name of the Search Head public IP address"
-      }
-    },
-    "templateLocation": {
-      "type": "string",
-      "defaultValue": "https://raw.githubusercontent.com/paulcradduck/Splunk-Azure/master/",
-      "metadata": {
-        "description": "Template file location",
-        "artifactsBaseUrl": "Base URL of the Publisher Template gallery package"
       }
     }
   },
   "variables": {
+    "storageAccountType": "Standard_LRS",
+    "standaloneVmSize": "Standard_D3_v2",
+    "clusterMasterVmSize": "Standard_D3_v2",
+    "clusterSearchheadVmSize": "Standard_D3_v2",
+    "clusterIndexerVmSize": "Standard_D3_v2",
+    "clusterIndexerVmCount": 3,
+    "virtualNetworkName": "splunk-vnet",
+    "virtualNetworkNewOrExisting": "new",
+    "virtualNetworkExistingRGName": "",
+    "virtualNetworkAddressPrefix": "10.0.0.0/16",
+    "subnet1Name": "shsubnet",
+    "subnet1Prefix": "10.0.0.0/24",
+    "subnet1StartAddress": "10.0.0.20",
+    "subnet2Name": "idxsubnet",
+    "subnet2Prefix": "10.0.1.0/24",
+    "subnet2StartAddress": "10.0.1.20",
+    "sshFrom": "0.0.0.0/0",
+    "forwardedDataFrom": "0.0.0.0/0",
+    "publicIPName": "splunksh-publicip",
+    "templateLocation": "https://raw.githubusercontent.com/azure/azure-quickstart-templates/master/splunk-on-ubuntu",
     "templateAPIVersion": "2015-01-01",
     "resourceAPIVersion": "2015-06-15",
     "storageAccountNamePrefix": "[concat(uniqueString(resourceGroup().id, deployment().name), 'splunk')]",
-    "templateBaseUrl": "[concat(parameters('templateLocation'), '/')]",
+    "templateBaseUrl": "[concat(variables('templateLocation'), '/')]",
     "sharedTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'shared-resources.json')]",
-    "virtualNetworkTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'vnet-', parameters('virtualNetworkNewOrExisting'), '.json')]",
+    "virtualNetworkTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'vnet-', variables('virtualNetworkNewOrExisting'), '.json')]",
     "emptyTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'empty-resources.json')]",
     "nodesPerStorageAccount": 4,
     "tshirtSizeStandalone": {
-      "standaloneVmSize": "[parameters('standaloneVmSize')]",
+      "standaloneVmSize": "[variables('standaloneVmSize')]",
       "clusterMasterVmSize": "",
       "clusterSearchheadVmSize": "",
       "clusterIndexerVmSize": "",
@@ -218,7 +93,7 @@
       "clusterPeersCount": 0,
       "availabilitySetCount": 1,
       "publicIPAddress": {
-        "name": "[parameters('publicIPName')]",
+        "name": "[variables('publicIPName')]",
         "domainNamePrefix": "[parameters('domainNamePrefix')]",
         "count": 1,
         "map": [
@@ -227,7 +102,7 @@
       },
       "storage": {
         "name": "[variables('storageAccountNamePrefix')]",
-        "type": "[parameters('storageAccountType')]",
+        "type": "[variables('storageAccountType')]",
         "count": 1,
         "map": [
           0
@@ -236,20 +111,20 @@
     },
     "tshirtSizeCluster": {
       "standaloneVmSize": "",
-      "clusterMasterVmSize": "[parameters('clusterMasterVmSize')]",
-      "clusterSearchheadVmSize": "[parameters('clusterSearchheadVmSize')]",
-      "clusterIndexerVmSize": "[parameters('clusterIndexerVmSize')]",
+      "clusterMasterVmSize": "[variables('clusterMasterVmSize')]",
+      "clusterSearchheadVmSize": "[variables('clusterSearchheadVmSize')]",
+      "clusterIndexerVmSize": "[variables('clusterIndexerVmSize')]",
       "diskSize": 1023,
       "standaloneTemplateUrl": "[variables('emptyTemplateUrl')]",
       "clusterMasterTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'clustermaster-resources.json')]",
       "clusterSearchheadTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'clustersearchhead-resources.json')]",
       "clusterPeersTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'clusterpeers-resources.json')]",
-      "clusterPeersCount": "[parameters('clusterIndexerVmCount')]",
+      "clusterPeersCount": "[variables('clusterIndexerVmCount')]",
       "availabilitySetCount": 3,
       "publicIPAddress": {
-        "name": "[parameters('publicIPName')]",
+        "name": "[variables('publicIPName')]",
         "domainNamePrefix": "[parameters('domainNamePrefix')]",
-        "count": "[add(2, parameters('clusterIndexerVmCount'))]",
+        "count": "[add(2, variables('clusterIndexerVmCount'))]",
         "map": [
           "",
           "-cm",
@@ -272,24 +147,13 @@
           "-cp16",
           "-cp17",
           "-cp18",
-          "-cp19",
-          "-cp20",
-          "-cp21",
-          "-cp22",
-          "-cp23",
-          "-cp24",
-          "-cp25",
-          "-cp26",
-          "-cp27",
-          "-cp28",
-          "-cp29",
-          "-cp30"
+          "-cp19"
         ]
       },
       "storage": {
         "name": "[variables('storageAccountNamePrefix')]",
-        "type": "[parameters('storageAccountType')]",
-        "count": "[div(sub(add(add(2, parameters('clusterIndexerVmCount')), variables('nodesPerStorageAccount')), 1), variables('nodesPerStorageAccount'))]",
+        "type": "[variables('storageAccountType')]",
+        "count": "[div(sub(add(add(2, variables('clusterIndexerVmCount')), variables('nodesPerStorageAccount')), 1), variables('nodesPerStorageAccount'))]",
         "map": [
           0,
           1,
@@ -312,43 +176,35 @@
           5,
           5,
           5,
-          5,
-          6,
-          6,
-          6,
-          6,
-          7,
-          7,
-          7,
-          7
+          5
         ]
       }
     },
     "tshirtSize": "[variables(concat('tshirtSize', parameters('deploymentType')))]",
-    "sa2": "[parameters('subnet2StartAddress')]",
+    "sa2": "[variables('subnet2StartAddress')]",
     "ipOctet01": "[concat(split(variables('sa2'), '.')[0], '.', split(variables('sa2'), '.')[1], '.')]",
     "ipOctet2": "[int(split(variables('sa2'), '.')[2])]",
     "ipOctet3": "[int(split(variables('sa2'), '.')[3])]",
     "networkSettings": {
-      "virtualNetworkName": "[parameters('virtualNetworkName')]",
-      "virtualNetworkExistingRGName": "[parameters('virtualNetworkExistingRGName')]",
-      "virtualNetworkAddressPrefix": "[parameters('virtualNetworkAddressPrefix')]",
+      "virtualNetworkName": "[variables('virtualNetworkName')]",
+      "virtualNetworkExistingRGName": "[variables('virtualNetworkExistingRGName')]",
+      "virtualNetworkAddressPrefix": "[variables('virtualNetworkAddressPrefix')]",
       "subnet": {
         "sh": {
-          "name": "[parameters('subnet1Name')]",
-          "prefix": "[parameters('subnet1Prefix')]",
-          "vnet": "[parameters('virtualNetworkName')]"
+          "name": "[variables('subnet1Name')]",
+          "prefix": "[variables('subnet1Prefix')]",
+          "vnet": "[variables('virtualNetworkName')]"
         },
         "idx": {
-          "name": "[parameters('subnet2Name')]",
-          "prefix": "[parameters('subnet2Prefix')]",
-          "vnet": "[parameters('virtualNetworkName')]"
+          "name": "[variables('subnet2Name')]",
+          "prefix": "[variables('subnet2Prefix')]",
+          "vnet": "[variables('virtualNetworkName')]"
         }
       },
       "statics": {
-        "standaloneIp": "[parameters('subnet1StartAddress')]",
-        "clusterSearchheadIp": "[parameters('subnet1StartAddress')]",
-        "clusterMasterIp": "[parameters('subnet2StartAddress')]",
+        "standaloneIp": "[variables('subnet1StartAddress')]",
+        "clusterSearchheadIp": "[variables('subnet1StartAddress')]",
+        "clusterMasterIp": "[variables('subnet2StartAddress')]",
         "indexerIps": {
           "ipOctet01": "[variables('ipOctet01')]",
           "ipOctet2": "[add(variables('ipOctet2'), div(add(variables('ipOctet3'), 1), 255))]",
@@ -357,7 +213,7 @@
       }
     },
     "availabilitySetSettings": {
-      "name": "[concat(parameters('virtualNetworkName'), '-aset')]",
+      "name": "[concat(variables('virtualNetworkName'), '-aset')]",
       "count": "[variables('tshirtSize').availabilitySetCount]",
       "fdCount": 3,
       "udCount": 5
@@ -367,19 +223,18 @@
         "publisher": "splunk",
         "offer": "splunk-enterprise-base-image",
         "sku": "splunk-on-ubuntu-14-04-lts",
-        "version": "1.1.1"
+        "version": "1.0.9"
       },
       "scripts": [
         "[concat(variables('templateBaseUrl'), 'scripts/', 'vm-disk-utils-0.1.sh')]",
         "[concat(variables('templateBaseUrl'), 'scripts/', 'node-setup.sh')]"
       ]
     },
-    "vnetId-new": "[concat(resourceGroup().id, '/providers/Microsoft.Network/virtualNetworks/',parameters('virtualNetworkName'))]",
-    "vnetId-existing": "[resourceId(parameters('virtualNetworkExistingRGName'),'Microsoft.Network/virtualNetworks/',parameters('virtualNetworkName'))]",
-    "vnetId": "[variables(concat('vnetId-', parameters('virtualNetworkNewOrExisting')))]",
-    "subnet1Ref": "[concat(variables('vnetId'),'/subnets/',parameters('subnet1Name'))]",
-    "subnet2Ref": "[concat(variables('vnetId'),'/subnets/',parameters('subnet2Name'))]",
-    "providerGuid": "[toUpper('7d69ff10-1a05-4353-b69d-0e87c3382e96')]"
+    "vnetId-new": "[concat(resourceGroup().id, '/providers/Microsoft.Network/virtualNetworks/',variables('virtualNetworkName'))]",
+    "vnetId-existing": "[resourceId(variables('virtualNetworkExistingRGName'),'Microsoft.Network/virtualNetworks/',variables('virtualNetworkName'))]",
+    "vnetId": "[variables(concat('vnetId-', variables('virtualNetworkNewOrExisting')))]",
+    "subnet1Ref": "[concat(variables('vnetId'),'/subnets/',variables('subnet1Name'))]",
+    "subnet2Ref": "[concat(variables('vnetId'),'/subnets/',variables('subnet2Name'))]"
   },
   "resources": [
     {
@@ -404,9 +259,6 @@
           },
           "storageSettings": {
             "value": "[variables('tshirtSize').storage]"
-          },
-          "providerGuid": {
-            "value": "[variables('providerGuid')]"
           }
         }
       }
@@ -427,9 +279,6 @@
           },
           "networkSettings": {
             "value": "[variables('networkSettings')]"
-          },
-          "providerGuid": {
-            "value": "[variables('providerGuid')]"
           }
         }
       }
@@ -459,8 +308,8 @@
               "staticIp": "[variables('networkSettings').statics.standaloneIp]",
               "clusterMasterIp": "NA",
               "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '')]",
-              "sshFrom": "[concat(parameters('sshFrom'), '')]",
-              "forwardedDataFrom": "[concat(parameters('forwardedDataFrom'), '')]",
+              "sshFrom": "[concat(variables('sshFrom'), '')]",
+              "forwardedDataFrom": "[concat(variables('forwardedDataFrom'), '')]",
               "availabilitySet": "[concat(variables('availabilitySetSettings').name, '0')]"
             }
           },
@@ -487,9 +336,6 @@
           },
           "templateBaseUrl": {
             "value": "[concat(variables('templateBaseUrl'), 'nested/')]"
-          },
-          "providerGuid": {
-            "value": "[variables('providerGuid')]"
           }
         }
       }
@@ -519,7 +365,7 @@
               "staticIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "clusterMasterIp": "NA",
               "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '-cm')]",
-              "sshFrom": "[concat(parameters('sshFrom'), '')]",
+              "sshFrom": "[concat(variables('sshFrom'), '')]",
               "availabilitySet": "[concat(variables('availabilitySetSettings').name, '0')]"
             }
           },
@@ -538,9 +384,6 @@
           "splunkAdminPassword": {
             "value": "[parameters('splunkAdminPassword')]"
           },
-          "clusterSecret": {
-            "value": "[parameters('clusterSecret')]"
-          },
           "location": {
             "value": "[parameters('location')]"
           },
@@ -549,9 +392,6 @@
           },
           "templateBaseUrl": {
             "value": "[concat(variables('templateBaseUrl'), 'nested/')]"
-          },
-          "providerGuid": {
-            "value": "[variables('providerGuid')]"
           }
         }
       }
@@ -582,7 +422,7 @@
               "staticIp": "[variables('networkSettings').statics.clusterSearchheadIp]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '')]",
-              "sshFrom": "[concat(parameters('sshFrom'), '')]",
+              "sshFrom": "[concat(variables('sshFrom'), '')]",
               "availabilitySet": "[concat(variables('availabilitySetSettings').name, '1')]"
             }
           },
@@ -601,9 +441,6 @@
           "splunkAdminPassword": {
             "value": "[parameters('splunkAdminPassword')]"
           },
-          "clusterSecret": {
-            "value": "[parameters('clusterSecret')]"
-          },
           "location": {
             "value": "[parameters('location')]"
           },
@@ -612,9 +449,6 @@
           },
           "templateBaseUrl": {
             "value": "[concat(variables('templateBaseUrl'), 'nested/')]"
-          },
-          "providerGuid": {
-            "value": "[variables('providerGuid')]"
           }
         }
       }
@@ -646,8 +480,8 @@
               "staticIps": "[variables('networkSettings').statics.indexerIps]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '-cp')]",
-              "sshFrom": "[concat(parameters('sshFrom'), '')]",
-              "forwardedDataFrom": "[concat(parameters('forwardedDataFrom'), '')]",
+              "sshFrom": "[concat(variables('sshFrom'), '')]",
+              "forwardedDataFrom": "[concat(variables('forwardedDataFrom'), '')]",
               "availabilitySet": "[concat(variables('availabilitySetSettings').name, '2')]"
             }
           },
@@ -666,9 +500,6 @@
           "splunkAdminPassword": {
             "value": "[parameters('splunkAdminPassword')]"
           },
-          "clusterSecret": {
-            "value": "[parameters('clusterSecret')]"
-          },
           "location": {
             "value": "[parameters('location')]"
           },
@@ -677,9 +508,6 @@
           },
           "templateBaseUrl": {
             "value": "[concat(variables('templateBaseUrl'), 'nested/')]"
-          },
-          "providerGuid": {
-            "value": "[variables('providerGuid')]"
           }
         }
       }
