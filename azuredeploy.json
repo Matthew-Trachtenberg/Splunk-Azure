@@ -713,8 +713,7 @@
       "name": "[parameters('loadBalancerName')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[concat('Microsoft.Resources/deployments/', 'virtual-network')]",
-        "[concat('Microsoft.Storage/storageAccounts/', '[parameters('storageAccountNameLoadBalancer')]')]"
+        "[concat('Microsoft.Resources/deployments/', 'virtual-network')]"
       ],
       "properties": {
         "frontendIPConfigurations": [
