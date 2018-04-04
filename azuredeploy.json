@@ -2,34 +2,13 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.2.5.0",
   "parameters": {
-    "location": {
+    "locationTest": {
       "type": "string",
       "metadata": {
         "description": "Location where resources will be provisioned"
       }
     },
-	     "lb_name": {
-			"type": "string",
-			"value": "fnfsplunklb"
-        },
-        "lb_location": {
-            "type": "string",
-			"value": "eastus"
-			
-        },
-        "lb_sku": {
-            "type": "string",
-			"value": "Basic"
-        },
-        "lb_subnetId": {
-            "type": "string"
-			
-        },
-        "lb_privateIPAllocationMethod": {
-            "type": "string",
-			"value": "Dynamic"
-        },
-    "storageAccountType": {
+	  "storageAccountType": {
       "type": "string",
       "defaultValue": "Standard_LRS",
       "metadata": {
