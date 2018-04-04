@@ -8,6 +8,27 @@
         "description": "Location where resources will be provisioned"
       }
     },
+	     "lb_name": {
+			"type": "string",
+			"value": "fnfsplunklb"
+        },
+        "lb_location": {
+            "type": "string",
+			"value": "eastus"
+			
+        },
+        "lb_sku": {
+            "type": "string",
+			"value": "Basic"
+        },
+        "lb_subnetId": {
+            "type": "string"
+			
+        },
+        "lb_privateIPAllocationMethod": {
+            "type": "string",
+			"value": "Dynamic"
+        }
     "storageAccountType": {
       "type": "string",
       "defaultValue": "Standard_LRS",
@@ -556,6 +577,29 @@
         }
       }
     },
+	{
+     "apiVersion": "2017-08-01",
+     "name": "[parameters('lb_name')]",
+     "type": "Microsoft.Network/loadBalancers",
+     "location": "[parameters('lb_location')]",
+     "sku": {
+     "name": "[parameters('lb_sku')]"
+          },
+     "dependsOn": [],
+     "properties": {
+        "frontendIPConfigurations": [
+         {
+          "name": "fnfsplunk",
+          "properties": {
+          "privateIPAllocationMethod": "[parameters('lb_privateIPAllocationMethod')]",
+          "subnet": {
+          "id": "[parameters('lb_subnetId')]"
+                 }
+             }
+           }
+         ]
+         }
+        }
     {
       "apiVersion": "2015-01-01",
       "type": "Microsoft.Resources/deployments",
