@@ -187,12 +187,6 @@
         "description": "Name of the Search Head public IP address"
       }
     },
-    "virtualNetworkNameLoadBalancer": {
-      "type": "string",
-      "metadata": {
-        "description": "This is the name of the Virtual Network"
-      }
-    },
     "loadBalancerName": {
       "type": "string",
       "metadata": {
@@ -398,10 +392,8 @@
     "subnet1Ref": "[concat(variables('vnetId'),'/subnets/',parameters('subnet1Name'))]",
     "subnet2Ref": "[concat(variables('vnetId'),'/subnets/',parameters('subnet2Name'))]",
     "providerGuid": "[toUpper('7d69ff10-1a05-4353-b69d-0e87c3382e96')]",
-    "subnetName": "virtualNetworkNameLoadBalancer",
     "storageAccountType": "Standard_LRS",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkNameLoadBalancer'))]",
-    "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables ('subnetName'))]",
     "lbID": "[resourceId('Microsoft.Network/loadBalancers',parameters('loadBalancerName'))]"
   },
   "resources": [
@@ -717,43 +709,22 @@
       }
     },
     {
-      "apiVersion": "2015-05-01-preview",
-      "type": "Microsoft.Network/virtualNetworks",
-      "name": "[parameters('virtualNetworkName')]",
-      "location": "[resourceGroup().location]",
-      "properties": {
-        "addressSpace": {
-          "addressPrefixes": [
-            "10.0.0.0/16"
-          ]
-        },
-        "subnets": [
-          {
-            "name": "[variables('subnetName')]",
-            "properties": {
-              "addressPrefix": "10.0.2.0/24"
-            }
-          }
-        ]
-      }
-    },
-    {
       "apiVersion": "2017-10-01",
       "type": "Microsoft.Network/loadBalancers",
       "name": "[parameters('loadBalancerName')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[variables('vnetID')]"
+        "[concat('Microsoft.Resources/deployments/', 'virtual-network')]",
+        "[concat('Microsoft.Storage/storageAccounts/', '[parameters('storageAccountNameLoadBalancer')]')]"
       ],
       "properties": {
         "frontendIPConfigurations": [
           {
             "properties": {
               "subnet": {
-                "id": "[variables('subnetRef')]"
+                "id": "[variables('subnet1Ref')]"
               },
-              "privateIPAddress": "10.0.2.6",
-              "privateIPAllocationMethod": "Static"
+              "privateIPAllocationMethod": "Dynamic"
             },
             "name": "LoadBalancerFrontend"
           }
