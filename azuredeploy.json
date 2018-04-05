@@ -244,6 +244,7 @@
       "clusterMasterTemplateUrl": "[variables('emptyTemplateUrl')]",
       "clusterSearchheadTemplateUrl": "[variables('emptyTemplateUrl')]",
       "clusterPeersTemplateUrl": "[variables('emptyTemplateUrl')]",
+      "deployServerTemplateUrl": "[variables('emptyTemplateUrl')]",
       "clusterPeersCount": 0,
       "availabilitySetCount": 1,
       "publicIPAddress": {
@@ -272,6 +273,7 @@
       "diskSize": 1023,
       "standaloneTemplateUrl": "[variables('emptyTemplateUrl')]",
       "clusterMasterTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'clustermaster-resources.json')]",
+      "deployServerTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'deployserver-resources.json')]",
       "clusterSearchheadTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'clustersearchhead-resources.json')]",
       "clusterPeersTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'clusterpeers-resources.json')]",
       "clusterPeersCount": "[parameters('clusterIndexerVmCount')]",
@@ -654,7 +656,7 @@
     {
       "apiVersion": "2015-01-01",
       "type": "Microsoft.Resources/deployments",
-      "name": "deployServerVmSize-deployment",
+      "name": "deployServer-deployment",
       "dependsOn": [
         "[concat('Microsoft.Resources/deployments/', 'shared')]",
         "[concat('Microsoft.Resources/deployments/', 'virtual-network')]",
@@ -664,7 +666,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[variables('tshirtSize').clusterSearchheadTemplateUrl]",
+          "uri": "[variables('tshirtSize').deployServerTemplateUrl]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
@@ -677,7 +679,7 @@
               "diskSize": 100,
               "staticIp": "[variables('networkSettings').statics.clusterSearchheadIp]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
-              "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '')]",
+              "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '-ds')]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
               "availabilitySet": "[concat(variables('availabilitySetSettings').name, '1')]"
             }
