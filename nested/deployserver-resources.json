@@ -42,9 +42,9 @@
   "variables": {
     "templateAPIVersion": "2015-01-01",
     "resourceAPIVersion": "2015-06-15",
-    "splunkServerRole": "splunk_cluster_search_head",
+    "splunkServerRole": "splunk_deploy_server",
     "securityGroupName": "[concat(parameters('namespace'), '-nsg')]",
-    "splunkTemplateUrl": "[concat(parameters('templateBaseUrl'), 'splunk-2disk-resources.json')]"
+    "splunkTemplateUrl": "[concat(parameters('templateBaseUrl'), 'splunk-1disk-resources.json')]"
   },
   "resources": [
     {
@@ -119,7 +119,7 @@
     {
       "apiVersion": "2015-01-01",
       "type": "Microsoft.Resources/deployments",
-      "name": "clustersearchhead",
+      "name": "deployserver",
       "dependsOn": [
         "[concat('Microsoft.Network/networkSecurityGroups/', variables('securityGroupName'))]"
       ],

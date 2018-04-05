@@ -134,16 +134,6 @@
               },
               "caching": "ReadOnly",
               "createOption": "Empty"
-            },
-            {
-              "name": "datadisk2",
-              "diskSizeGB": "[parameters('machineSettings').diskSize]",
-              "lun": 1,
-              "vhd": {
-                "uri": "[concat(reference(variables('storageReferenceName'), variables('storageApiVersion')).primaryEndpoints.blob, 'vhds/', variables('vmName'), '-datadisk2.vhd')]"
-              },
-              "caching": "ReadOnly",
-              "createOption": "Empty"
             }
           ]
         },
