@@ -40,6 +40,13 @@
         "description": "Size of cluster master VM"
       }
     },
+    "deployServerVmSize": {
+      "type": "string",
+      "defaultValue": "Standard_D2_v2",
+      "metadata": {
+        "description": "Size of the Deploy Server VMs"
+      }
+    },
     "clusterSearchheadVmSize": {
       "type": "string",
       "defaultValue": "Standard_D3_v2",
