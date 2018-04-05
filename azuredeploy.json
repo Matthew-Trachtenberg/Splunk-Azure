@@ -238,6 +238,7 @@
       "clusterMasterVmSize": "",
       "clusterSearchheadVmSize": "",
       "clusterIndexerVmSize": "",
+      "deployServerVmSize": "",
       "diskSize": 1023,
       "standaloneTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'standalone-instance-resources.json')]",
       "clusterMasterTemplateUrl": "[variables('emptyTemplateUrl')]",
@@ -608,6 +609,69 @@
           "machineSettings": {
             "value": {
               "vmSize": "[variables('tshirtSize').clusterSearchheadVmSize]",
+              "diskSize": "[variables('tshirtSize').diskSize]",
+              "staticIp": "[variables('networkSettings').statics.clusterSearchheadIp]",
+              "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
+              "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '')]",
+              "sshFrom": "[concat(parameters('sshFrom'), '')]",
+              "availabilitySet": "[concat(variables('availabilitySetSettings').name, '1')]"
+            }
+          },
+          "storageSettings": {
+            "value": "[variables('tshirtSize').storage]"
+          },
+          "osSettings": {
+            "value": "[variables('osSettings')]"
+          },
+          "adminUsername": {
+            "value": "[parameters('adminUsername')]"
+          },
+          "adminPassword": {
+            "value": "[parameters('adminPassword')]"
+          },
+          "splunkAdminPassword": {
+            "value": "[parameters('splunkAdminPassword')]"
+          },
+          "clusterSecret": {
+            "value": "[parameters('clusterSecret')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "subnet": {
+            "value": "[variables('subnet1Ref')]"
+          },
+          "templateBaseUrl": {
+            "value": "[concat(variables('templateBaseUrl'), 'nested/')]"
+          },
+          "providerGuid": {
+            "value": "[variables('providerGuid')]"
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "2015-01-01",
+      "type": "Microsoft.Resources/deployments",
+      "name": "deployServerVmSize-deployment",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', 'shared')]",
+        "[concat('Microsoft.Resources/deployments/', 'virtual-network')]",
+        "[concat('Microsoft.Resources/deployments/', 'clustermaster-deployment')]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('tshirtSize').clusterSearchheadTemplateUrl]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "namespace": {
+            "value": "ds"
+          },
+          "machineSettings": {
+            "value": {
+              "vmSize": "[variables('tshirtSize').deployServerVmSize]",
               "diskSize": "[variables('tshirtSize').diskSize]",
               "staticIp": "[variables('networkSettings').statics.clusterSearchheadIp]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
