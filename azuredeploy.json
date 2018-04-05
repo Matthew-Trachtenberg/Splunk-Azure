@@ -40,6 +40,13 @@
         "description": "Size of cluster master VM"
       }
     },
+    "DeployServerVmSize": {
+      "type": "string",
+      "defaultValue": "Standard_D2_v2",
+      "metadata": {
+        "description": "Size of deploy server VMs"
+      }
+    },
     "clusterSearchheadVmSize": {
       "type": "string",
       "defaultValue": "Standard_D3_v2",
@@ -220,6 +227,7 @@
     "tshirtSizeStandalone": {
       "standaloneVmSize": "[parameters('standaloneVmSize')]",
       "clusterMasterVmSize": "",
+      "DeployServerVmSize": "",
       "clusterSearchheadVmSize": "",
       "clusterIndexerVmSize": "",
       "diskSize": 1023,
@@ -249,6 +257,7 @@
     "tshirtSizeCluster": {
       "standaloneVmSize": "",
       "clusterMasterVmSize": "[parameters('clusterMasterVmSize')]",
+      "DeployServerVmSize": "[parameters('DeployServerVmSize')]",
       "clusterSearchheadVmSize": "[parameters('clusterSearchheadVmSize')]",
       "clusterIndexerVmSize": "[parameters('clusterIndexerVmSize')]",
       "diskSize": 1023,
@@ -360,6 +369,7 @@
       "statics": {
         "standaloneIp": "[parameters('subnet1StartAddress')]",
         "clusterSearchheadIp": "[parameters('subnet1StartAddress')]",
+        "deployServerIp": "[parameters('subnet1StartAddress')]",
         "clusterMasterIp": "[parameters('subnet2StartAddress')]",
         "indexerIps": {
           "ipOctet01": "[variables('ipOctet01')]",
@@ -533,6 +543,68 @@
               "staticIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "clusterMasterIp": "NA",
               "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '-cm')]",
+              "sshFrom": "[concat(parameters('sshFrom'), '')]",
+              "availabilitySet": "[concat(variables('availabilitySetSettings').name, '0')]"
+            }
+          },
+          "storageSettings": {
+            "value": "[variables('tshirtSize').storage]"
+          },
+          "osSettings": {
+            "value": "[variables('osSettings')]"
+          },
+          "adminUsername": {
+            "value": "[parameters('adminUsername')]"
+          },
+          "adminPassword": {
+            "value": "[parameters('adminPassword')]"
+          },
+          "splunkAdminPassword": {
+            "value": "[parameters('splunkAdminPassword')]"
+          },
+          "clusterSecret": {
+            "value": "[parameters('clusterSecret')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "subnet": {
+            "value": "[variables('subnet2Ref')]"
+          },
+          "templateBaseUrl": {
+            "value": "[concat(variables('templateBaseUrl'), 'nested/')]"
+          },
+          "providerGuid": {
+            "value": "[variables('providerGuid')]"
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "2015-01-01",
+      "type": "Microsoft.Resources/deployments",
+      "name": "deployserver-deployment",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', 'shared')]",
+        "[concat('Microsoft.Resources/deployments/', 'virtual-network')]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('tshirtSize').clusterMasterTemplateUrl]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "namespace": {
+            "value": "cm"
+          },
+          "machineSettings": {
+            "value": {
+              "vmSize": "[variables('tshirtSize').DeployServerVmSize]",
+              "diskSize": "[variables('tshirtSize').diskSize]",
+              "staticIp": "[variables('networkSettings').statics.deployServerIp]",
+              "deployServerIp": "NA",
+              "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '-ds')]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
               "availabilitySet": "[concat(variables('availabilitySetSettings').name, '0')]"
             }
