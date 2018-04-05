@@ -672,7 +672,7 @@
           "machineSettings": {
             "value": {
               "vmSize": "[variables('tshirtSize').deployServerVmSize]",
-              "diskSize": "[variables('tshirtSize').diskSize]",
+              "diskSize": 100,
               "staticIp": "[variables('networkSettings').statics.clusterSearchheadIp]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '')]",
