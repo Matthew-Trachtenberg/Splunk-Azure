@@ -4,6 +4,7 @@
   "parameters": {
     "location": {
       "type": "string",
+      "defaultValue": "East US",
       "metadata": {
         "description": "Location where resources will be provisioned"
       }
@@ -72,6 +73,7 @@
     },
     "clusterSecret": {
       "type": "securestring",
+      "defaultValue": "Pmc8520Pmc8520",
       "metadata": {
         "description": "Security key for authentication between cluster nodes (when applicable)"
       }
@@ -84,18 +86,21 @@
     },
     "adminPassword": {
       "type": "securestring",
+      "defaultValue": "Pmc8520Pmc8520",
       "metadata": {
         "description": "Password for the VMs"
       }
     },
     "splunkAdminPassword": {
       "type": "securestring",
+      "defaultValue": "Pmc8520Pmc8520",
       "metadata": {
         "description": "Password for Splunk admin"
       }
     },
     "virtualNetworkName": {
       "type": "string",
+      "defaultValue": "fnfsplunk",
       "metadata": {
         "description": "Name of the virtual network that the consumer wants to use"
       }
@@ -183,6 +188,7 @@
     },
     "domainNamePrefix": {
       "type": "string",
+      "defaultValue": "fnfsplunk",
       "metadata": {
         "description": "Prefix for domain name to access Splunk which is in the format: {prefix}.{location}.cloudapp.azure.com e.g. mysplunk.westus.cloudapp.azure.com. Prefix should match the following regular expression ^[a-z][a-z0-9-]{1,61}[a-z0-9]$ or it will raise an error."
       }
@@ -196,12 +202,14 @@
     },
     "loadBalancerName": {
       "type": "string",
+      "defaultValue": "fnfsplunklb",
       "metadata": {
         "description": "This is the name of the load balancer"
       }
     },
     "storageAccountNameLoadBalancer": {
       "type": "string",
+      "defaultValue": "fnfsplunklbstorage",
       "metadata": {
         "description": "Storage account name"
       }
