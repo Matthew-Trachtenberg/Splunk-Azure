@@ -80,6 +80,7 @@
     },
     "adminUsername": {
       "type": "string",
+      "defaultValue": "vcdx244",
       "metadata": {
         "description": "Username for the VMs"
       }
