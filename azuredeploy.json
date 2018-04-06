@@ -18,7 +18,7 @@
     },
     "deploymentType": {
       "type": "string",
-      "defaultValue": "Standalone",
+      "defaultValue": "Cluster",
       "allowedValues": [
         "Standalone",
         "Cluster"
