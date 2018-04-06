@@ -382,6 +382,7 @@
       "statics": {
         "standaloneIp": "[parameters('subnet1StartAddress')]",
         "clusterSearchheadIp": "[parameters('subnet1StartAddress')]",
+        "deployServerIp": "[parameters('subnet1StartAddress')]",
         "clusterMasterIp": "[parameters('subnet2StartAddress')]",
         "indexerIps": {
           "ipOctet01": "[variables('ipOctet01')]",
@@ -679,7 +680,7 @@
             "value": {
               "vmSize": "[variables('tshirtSize').deployServerVmSize]",
               "diskSize": 100,
-              "staticIp": "[variables('networkSettings').statics.clusterSearchheadIp]",
+              "staticIp": "[variables('networkSettings').statics.deployServerIp]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '-ds')]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
