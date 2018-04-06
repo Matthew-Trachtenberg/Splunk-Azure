@@ -360,9 +360,13 @@
     },
     "tshirtSize": "[variables(concat('tshirtSize', parameters('deploymentType')))]",
     "sa2": "[parameters('subnet2StartAddress')]",
+    "sa3": "[parameters('subnet1StartAddress')]",
     "ipOctet01": "[concat(split(variables('sa2'), '.')[0], '.', split(variables('sa2'), '.')[1], '.')]",
     "ipOctet2": "[int(split(variables('sa2'), '.')[2])]",
     "ipOctet3": "[int(split(variables('sa2'), '.')[3])]",
+    "ipOctet001": "[concat(split(variables('sa3'), '.')[0], '.', split(variables('sa3'), '.')[1], '.')]",
+    "ipOctet02": "[int(split(variables('sa3'), '.')[2])]",
+    "ipOctet03": "[int(split(variables('sa3'), '.')[3])]",
     "networkSettings": {
       "virtualNetworkName": "[parameters('virtualNetworkName')]",
       "virtualNetworkExistingRGName": "[parameters('virtualNetworkExistingRGName')]",
@@ -382,12 +386,16 @@
       "statics": {
         "standaloneIp": "[parameters('subnet1StartAddress')]",
         "clusterSearchheadIp": "[parameters('subnet1StartAddress')]",
-        "deployServerIp": "[parameters('subnet1StartAddress')]",
         "clusterMasterIp": "[parameters('subnet2StartAddress')]",
         "indexerIps": {
           "ipOctet01": "[variables('ipOctet01')]",
           "ipOctet2": "[add(variables('ipOctet2'), div(add(variables('ipOctet3'), 1), 255))]",
           "ipOctet3": "[mod(add(variables('ipOctet3'), 1), 255)]"
+        },
+        "deployServerIps": {
+          "ipOctet001": "[variables('ipOctet001')]",
+          "ipOctet02": "[add(variables('ipOctet02'), div(add(variables('ipOctet03'), 1), 255))]",
+          "ipOctet03": "[mod(add(variables('ipOctet03'), 1), 255)]"
         }
       }
     },
@@ -680,7 +688,7 @@
             "value": {
               "vmSize": "[variables('tshirtSize').deployServerVmSize]",
               "diskSize": 100,
-              "staticIp": "[variables('networkSettings').statics.deployServerIp]",
+              "staticIps": "[variables('networkSettings').statics.deployServerIps]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '-ds')]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
