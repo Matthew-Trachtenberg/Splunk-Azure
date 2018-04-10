@@ -391,9 +391,9 @@
           "ipOctet3": "[mod(add(variables('ipOctet3'), 1), 255)]"
         },
         "deployServerIps": {
-          "ipOctet001": "[variables('ipOctet001')]",
-          "ipOctet02": "[add(variables('ipOctet02'), div(add(variables('ipOctet03'), 1), 255))]",
-          "ipOctet03": "[mod(add(variables('ipOctet03'), 1), 255)]"
+          "ipOctet01": "[variables('ipOctet001')]",
+          "ipOctet2": "[add(variables('ipOctet02'), div(add(variables('ipOctet03'), 1), 255))]",
+          "ipOctet3": "[mod(add(variables('ipOctet03'), 1), 255)]"
         }
       }
     },
