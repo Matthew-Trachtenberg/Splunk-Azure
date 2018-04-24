@@ -690,7 +690,8 @@
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '-ds')]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
-              "availabilitySet": "[concat(variables('availabilitySetSettings').name, '1')]"
+              "availabilitySet": "[concat(variables('availabilitySetSettings').name, '1')]",
+              "vmCount": 1
             }
           },
           "storageSettings": {
