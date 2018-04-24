@@ -44,7 +44,7 @@
     "resourceAPIVersion": "2015-06-15",
     "splunkServerRole": "splunk_deploy_server",
     "securityGroupName": "[concat(parameters('namespace'), '-nsg')]",
-    "splunkTemplateUrl": "[concat(parameters('templateBaseUrl'), 'splunk-1disk-resources.json')]"
+    "splunkTemplateUrl": "[concat(parameters('templateBaseUrl'), 'splunk-1disk-resources-loop.json')]"
   },
   "resources": [
     {
