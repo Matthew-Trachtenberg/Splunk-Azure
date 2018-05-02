@@ -82,6 +82,9 @@
             "name": "ipconfig1",
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(variables('publicIpName'), copyindex()))]"
+              },
               "subnet": {
                 "id": "[parameters('subnet')]"
               }
@@ -139,16 +142,6 @@
               "lun": 0,
               "vhd": {
                 "uri": "[concat(reference(concat(variables('storageReferencePrefix'), parameters('storageSettings').map[copyindex()]), variables('storageApiVersion')).primaryEndpoints.blob, 'vhds/', variables('vmName'), copyindex(), '-datadisk1.vhd')]"
-              },
-              "caching": "ReadOnly",
-              "createOption": "Empty"
-            },
-            {
-              "name": "datadisk2",
-              "diskSizeGB": "[parameters('machineSettings').diskSize]",
-              "lun": 1,
-              "vhd": {
-                "uri": "[concat(reference(concat(variables('storageReferencePrefix'), parameters('storageSettings').map[copyindex()]), variables('storageApiVersion')).primaryEndpoints.blob, 'vhds/', variables('vmName'), copyindex(), '-datadisk2.vhd')]"
               },
               "caching": "ReadOnly",
               "createOption": "Empty"
