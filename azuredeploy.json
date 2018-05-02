@@ -281,10 +281,11 @@
       "publicIPAddress": {
         "name": "[parameters('publicIPName')]",
         "domainNamePrefix": "[parameters('domainNamePrefix')]",
-        "count": "[add(2, parameters('clusterIndexerVmCount'))]",
+        "count": "[add(3, parameters('clusterIndexerVmCount'))]",
         "map": [
           "",
           "-cm",
+          "-ds",
           "-cp0",
           "-cp1",
           "-cp2",
