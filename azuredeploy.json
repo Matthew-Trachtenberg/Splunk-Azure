@@ -222,6 +222,15 @@
         "description": "Template file location",
         "artifactsBaseUrl": "Base URL of the Publisher Template gallery package"
       }
+    },
+    "deployServerVmCount": {
+      "type": "int",
+      "defaultValue": 2,
+      "minValue": 1,
+      "maxValue": 30,
+      "metadata": {
+        "description": "Count of deploye server nodes"
+      }
     }
   },
   "variables": {
@@ -277,6 +286,7 @@
       "clusterSearchheadTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'clustersearchhead-resources.json')]",
       "clusterPeersTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'clusterpeers-resources.json')]",
       "clusterPeersCount": "[parameters('clusterIndexerVmCount')]",
+      "deployServerCount": "[parameters('deployServerVmCount')]",
       "availabilitySetCount": 3,
       "publicIPAddress": {
         "name": "[parameters('publicIPName')]",
@@ -686,14 +696,14 @@
           "machineSettings": {
             "value": {
               "vmSize": "[variables('tshirtSize').deployServerVmSize]",
+              "vmCount": "[variables('tshirtSize').deployServerCount]",
               "diskSize": 100,
               "staticIps": "[variables('networkSettings').statics.deployServerIps]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '-ds')]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
-              "availabilitySet": "[concat(variables('availabilitySetSettings').name, '1')]",
-              "vmCount": 1
-            }
+              "availabilitySet": "[concat(variables('availabilitySetSettings').name, '1')]"
+              }
           },
           "storageSettings": {
             "value": "[variables('tshirtSize').storage]"
