@@ -681,7 +681,8 @@
         "[concat('Microsoft.Resources/deployments/', 'shared')]",
         "[concat('Microsoft.Resources/deployments/', 'virtual-network')]",
         "[concat('Microsoft.Resources/deployments/', 'clustermaster-deployment')]",
-        "[concat('Microsoft.Resources/deployments/', 'clustersearchhead-deployment')]"
+        "[concat('Microsoft.Resources/deployments/', 'clustersearchhead-deployment')]",
+        "[concat('Microsoft.Resources/deployments/', 'clusterpeers-deployment')]"      
       ],
       "properties": {
         "mode": "Incremental",
