@@ -62,6 +62,13 @@
         "description": "Size of cluster indexer VM"
       }
     },
+    "LicenseVmSize": {
+      "type": "string",
+      "defaultValue": "Standard_D3_v2",
+      "metadata": {
+        "description": "Size of License Server VM"
+      }
+    },
     "clusterIndexerVmCount": {
       "type": "int",
       "defaultValue": 3,
@@ -248,12 +255,14 @@
       "clusterSearchheadVmSize": "",
       "clusterIndexerVmSize": "",
       "deployServerVmSize": "",
+      "licenseServerVmSize": "",
       "diskSize": 1023,
       "standaloneTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'standalone-instance-resources.json')]",
       "clusterMasterTemplateUrl": "[variables('emptyTemplateUrl')]",
       "clusterSearchheadTemplateUrl": "[variables('emptyTemplateUrl')]",
       "clusterPeersTemplateUrl": "[variables('emptyTemplateUrl')]",
       "deployServerTemplateUrl": "[variables('emptyTemplateUrl')]",
+      "licenseServerTemplateUrl": "[variables('emptyTemplateUrl')]",
       "clusterPeersCount": 0,
       "availabilitySetCount": 1,
       "publicIPAddress": {
@@ -279,10 +288,12 @@
       "clusterSearchheadVmSize": "[parameters('clusterSearchheadVmSize')]",
       "clusterIndexerVmSize": "[parameters('clusterIndexerVmSize')]",
       "deployServerVmSize": "[parameters('clusterIndexerVmSize')]",
+      "licenseServerVmSize": "[parameters('LicenseVmSize')]",
       "diskSize": 1023,
       "standaloneTemplateUrl": "[variables('emptyTemplateUrl')]",
       "clusterMasterTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'clustermaster-resources.json')]",
       "deployServerTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'deployserver-resources.json')]",
+      "licenseServerTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'licenseserver-resources.json')]",
       "clusterSearchheadTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'clustersearchhead-resources.json')]",
       "clusterPeersTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'clusterpeers-resources.json')]",
       "clusterPeersCount": "[parameters('clusterIndexerVmCount')]",
@@ -702,6 +713,73 @@
               "staticIps": "[variables('networkSettings').statics.deployServerIps]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '-ds')]",
+              "sshFrom": "[concat(parameters('sshFrom'), '')]",
+              "availabilitySet": "[concat(variables('availabilitySetSettings').name, '1')]"
+              }
+          },
+          "storageSettings": {
+            "value": "[variables('tshirtSize').storage]"
+          },
+          "osSettings": {
+            "value": "[variables('osSettings')]"
+          },
+          "adminUsername": {
+            "value": "[parameters('adminUsername')]"
+          },
+          "adminPassword": {
+            "value": "[parameters('adminPassword')]"
+          },
+          "splunkAdminPassword": {
+            "value": "[parameters('splunkAdminPassword')]"
+          },
+          "clusterSecret": {
+            "value": "[parameters('clusterSecret')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "subnet": {
+            "value": "[variables('subnet1Ref')]"
+          },
+          "templateBaseUrl": {
+            "value": "[concat(variables('templateBaseUrl'), 'nested/')]"
+          },
+          "providerGuid": {
+            "value": "[variables('providerGuid')]"
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "2015-01-01",
+      "type": "Microsoft.Resources/deployments",
+      "name": "licenseServer-deployment",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', 'shared')]",
+        "[concat('Microsoft.Resources/deployments/', 'virtual-network')]",
+        "[concat('Microsoft.Resources/deployments/', 'clustermaster-deployment')]",
+        "[concat('Microsoft.Resources/deployments/', 'clustersearchhead-deployment')]",
+        "[concat('Microsoft.Resources/deployments/', 'clusterpeers-deployment')]",
+        "[concat('Microsoft.Resources/deployments/', 'deployServer-deployment')]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('tshirtSize').licenseServerTemplateUrl]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "namespace": {
+            "value": "ls"
+          },
+          "machineSettings": {
+            "value": {
+              "vmSize": "[variables('tshirtSize').licenseServerVmSize]",
+              "vmCount": 1,
+              "diskSize": 100,
+              "staticIps": "[variables('networkSettings').statics.indexerIps]",
+              "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
+              "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '-ls')]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
               "availabilitySet": "[concat(variables('availabilitySetSettings').name, '1')]"
               }
