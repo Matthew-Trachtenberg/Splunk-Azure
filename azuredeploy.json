@@ -806,7 +806,7 @@
             "value": "[parameters('location')]"
           },
           "subnet": {
-            "value": "[variables('subnet1Ref')]"
+            "value": "[variables('subnet2Ref')]"
           },
           "templateBaseUrl": {
             "value": "[concat(variables('templateBaseUrl'), 'nested/')]"
