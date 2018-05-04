@@ -171,7 +171,6 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "singleQuote": "'",
       "name": "[concat(variables('vmName'), copyindex(), '/node-setup')]",
       "location": "[parameters('location')]",
       "dependsOn": [
