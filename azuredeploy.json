@@ -655,7 +655,7 @@
               "vmSize": "[variables('tshirtSize').clusterSearchheadVmSize]",
               "vmCount": "[variables('tshirtSize').searchheadCount]",
               "diskSize": "[variables('tshirtSize').diskSize]",
-              "staticIp": "[variables('networkSettings').statics.clusterSearchheadIp]",
+              "staticIps": "[variables('networkSettings').statics.indexerIps]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '')]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
