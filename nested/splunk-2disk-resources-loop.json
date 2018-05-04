@@ -81,8 +81,7 @@
           {
             "name": "ipconfig1",
             "properties": {
-              "privateIPAllocationMethod": "Static",
-              "privateIPAddress": "[concat(variables('ipOctet01'), add(variables('ipOctet2'), div(copyindex(variables('ipOctet3')), 255)), '.', mod(copyindex(variables('ipOctet3')), 255))]",
+              "privateIPAllocationMethod": "Dynamic",
               "subnet": {
                 "id": "[parameters('subnet')]"
               }
