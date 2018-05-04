@@ -238,6 +238,15 @@
       "metadata": {
         "description": "Count of deploye server nodes"
       }
+    },
+    "searchheadVmCount": {
+      "type": "int",
+      "defaultValue": 2,
+      "minValue": 1,
+      "maxValue": 30,
+      "metadata": {
+        "description": "Count of search head nodes"
+      }
     }
   },
   "variables": {
@@ -298,6 +307,7 @@
       "clusterPeersTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'clusterpeers-resources.json')]",
       "clusterPeersCount": "[parameters('clusterIndexerVmCount')]",
       "deployServerCount": "[parameters('deployServerVmCount')]",
+      "searchheadCount": "[parameters('searchheadVmCount')]",
       "availabilitySetCount": 3,
       "publicIPAddress": {
         "name": "[parameters('publicIPName')]",
@@ -643,6 +653,7 @@
           "machineSettings": {
             "value": {
               "vmSize": "[variables('tshirtSize').clusterSearchheadVmSize]",
+              "vmCount": "[variables('tshirtSize').searchheadCount]",
               "diskSize": "[variables('tshirtSize').diskSize]",
               "staticIp": "[variables('networkSettings').statics.clusterSearchheadIp]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
