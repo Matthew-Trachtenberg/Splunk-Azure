@@ -83,9 +83,6 @@
             "properties": {
               "privateIPAllocationMethod": "Static",
               "privateIPAddress": "[concat(variables('ipOctet01'), add(variables('ipOctet2'), div(copyindex(variables('ipOctet3')), 255)), '.', mod(copyindex(variables('ipOctet3')), 255))]",
-              "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(variables('publicIpName'), copyindex()))]"
-              },
               "subnet": {
                 "id": "[parameters('subnet')]"
               }
