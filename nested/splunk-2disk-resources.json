@@ -75,9 +75,6 @@
             "properties": {
               "privateIPAllocationMethod": "Static",
               "privateIPAddress": "[parameters('machineSettings').staticIp]",
-              "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIpName'))]"
-              },
               "subnet": {
                 "id": "[parameters('subnet')]"
               }
