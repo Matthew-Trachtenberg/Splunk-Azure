@@ -51,7 +51,6 @@
     "vmCount": "[parameters('machineSettings').vmCount]",
     "vmName": "[concat(parameters('namespace'), '-vm')]",
     "nicName": "[concat(parameters('namespace'), '-nic')]",
-    "publicIpName": "[parameters('machineSettings').publicIPName]",
     "clusterMasterIp": "[parameters('machineSettings').clusterMasterIp]",
     "securityGroupRef": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('securityGroupName'))]",
     "ipOctet01": "[parameters('machineSettings').staticIps.ipOctet01]",
