@@ -14,12 +14,6 @@
         "description": "Availability Set settings object"
       }
     },
-    "publicIPAddressSettings": {
-      "type": "object",
-      "metadata": {
-        "description": "Public IP address settings object"
-      }
-    },
     "storageSettings": {
       "type": "object",
       "metadata": {
@@ -66,25 +60,6 @@
       "properties": {
         "platformFaultDomainCount": "[parameters('availabilitySetSettings').fdCount]",
         "platformUpdateDomainCount": "[parameters('availabilitySetSettings').udCount]"
-      }
-    },
-    {
-      "apiVersion": "2015-06-15",
-      "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[concat(parameters('publicIPAddressSettings').name, parameters('publicIPAddressSettings').map[copyindex()])]",
-      "tags": {
-        "provider": "[parameters('providerGuid')]"
-      },
-      "copy": {
-        "name": "publicIPAddressLoop",
-        "count": "[parameters('publicIPAddressSettings').count]"
-      },
-      "location": "[parameters('location')]",
-      "properties": {
-        "publicIPAllocationMethod": "Dynamic",
-        "dnsSettings": {
-          "domainNameLabel": "[concat(parameters('publicIPAddressSettings').domainNamePrefix, parameters('publicIPAddressSettings').map[copyindex()])]"
-        }
       }
     }
   ]
