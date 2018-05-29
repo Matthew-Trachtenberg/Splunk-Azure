@@ -267,14 +267,6 @@
       "licenseServerTemplateUrl": "[variables('emptyTemplateUrl')]",
       "clusterPeersCount": 0,
       "availabilitySetCount": 1,
-      "publicIPAddress": {
-        "name": "[parameters('publicIPName')]",
-        "domainNamePrefix": "[parameters('domainNamePrefix')]",
-        "count": 1,
-        "map": [
-          ""
-        ]
-      },
       "storage": {
         "name": "[variables('storageAccountNamePrefix')]",
         "type": "[parameters('storageAccountType')]",
@@ -302,47 +294,6 @@
       "deployServerCount": "[parameters('deployServerVmCount')]",
       "searchheadCount": "[parameters('searchheadVmCount')]",
       "availabilitySetCount": 3,
-      "publicIPAddress": {
-        "name": "[parameters('publicIPName')]",
-        "domainNamePrefix": "[parameters('domainNamePrefix')]",
-        "count": "[add(3, parameters('clusterIndexerVmCount'))]",
-        "map": [
-          "",
-          "-cm",
-          "-ds0",
-          "-cp0",
-          "-cp1",
-          "-cp2",
-          "-cp3",
-          "-cp4",
-          "-cp5",
-          "-cp6",
-          "-cp7",
-          "-cp8",
-          "-cp9",
-          "-cp10",
-          "-cp11",
-          "-cp12",
-          "-cp13",
-          "-cp14",
-          "-cp15",
-          "-cp16",
-          "-cp17",
-          "-cp18",
-          "-cp19",
-          "-cp20",
-          "-cp21",
-          "-cp22",
-          "-cp23",
-          "-cp24",
-          "-cp25",
-          "-cp26",
-          "-cp27",
-          "-cp28",
-          "-cp29",
-          "-cp30"
-        ]
-      },
       "storage": {
         "name": "[variables('storageAccountNamePrefix')]",
         "type": "[parameters('storageAccountType')]",
@@ -526,7 +477,6 @@
               "diskSize": "[variables('tshirtSize').diskSize]",
               "staticIp": "[variables('networkSettings').statics.standaloneIp]",
               "clusterMasterIp": "NA",
-              "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '')]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
               "forwardedDataFrom": "[concat(parameters('forwardedDataFrom'), '')]",
               "availabilitySet": "[concat(variables('availabilitySetSettings').name, '0')]"
@@ -586,7 +536,6 @@
               "diskSize": "[variables('tshirtSize').diskSize]",
               "staticIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "clusterMasterIp": "NA",
-              "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '-cm')]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
               "availabilitySet": "[concat(variables('availabilitySetSettings').name, '0')]"
             }
@@ -650,7 +599,6 @@
               "diskSize": "[variables('tshirtSize').diskSize]",
               "staticIps": "[variables('networkSettings').statics.indexerIps]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
-              "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '')]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
               "availabilitySet": "[concat(variables('availabilitySetSettings').name, '1')]"
             }
@@ -716,7 +664,6 @@
               "diskSize": 100,
               "staticIps": "[variables('networkSettings').statics.deployServerIps]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
-              "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '-ds')]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
               "availabilitySet": "[concat(variables('availabilitySetSettings').name, '1')]"
               }
@@ -783,7 +730,6 @@
               "diskSize": 100,
               "staticIps": "[variables('networkSettings').statics.indexerIps]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
-              "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '-ls')]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
               "availabilitySet": "[concat(variables('availabilitySetSettings').name, '1')]"
               }
@@ -847,7 +793,6 @@
               "diskSize": "[variables('tshirtSize').diskSize]",
               "staticIps": "[variables('networkSettings').statics.indexerIps]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
-              "publicIPName": "[concat(variables('tshirtSize').publicIPAddress.name, '-cp')]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
               "forwardedDataFrom": "[concat(parameters('forwardedDataFrom'), '')]",
               "availabilitySet": "[concat(variables('availabilitySetSettings').name, '2')]"
