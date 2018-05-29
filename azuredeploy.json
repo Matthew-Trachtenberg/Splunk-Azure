@@ -418,9 +418,6 @@
           "availabilitySetSettings": {
             "value": "[variables('availabilitySetSettings')]"
           },
-          "publicIPAddressSettings": {
-            "value": "[variables('tshirtSize').publicIPAddress]"
-          },
           "storageSettings": {
             "value": "[variables('tshirtSize').storage]"
           },
