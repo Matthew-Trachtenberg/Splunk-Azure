@@ -480,6 +480,12 @@
           "namespace": {
             "value": "standalone"
           },
+          "availabilitySetSettings": {
+            "value": "[parameters('availabilitySetSettings')]"
+          },
+          "splunkRole": {
+            "value": "[parameters('splunkRole')]"
+          },
           "machineSettings": {
             "value": {
               "vmSize": "[variables('tshirtSize').standaloneVmSize]",
@@ -538,6 +544,12 @@
         "parameters": {
           "namespace": {
             "value": "cm"
+          },
+          "availabilitySetSettings": {
+            "value": "[parameters('availabilitySetSettings')]"
+          },
+          "splunkRole": {
+            "value": "[parameters('splunkRole')]"
           },
           "machineSettings": {
             "value": {
