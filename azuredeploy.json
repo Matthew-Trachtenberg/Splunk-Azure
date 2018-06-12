@@ -203,7 +203,7 @@
     },
     "loadBalancerName": {
       "type": "string",
-      "defaultValue": "fnfsplunklb",
+      "defaultValue": "ILB-SPLK-PROD-USE2",
       "metadata": {
         "description": "This is the name of the load balancer"
       }
@@ -244,9 +244,9 @@
     "splunkRole": { 
       "type": "array", 
       "defaultValue": [ 
-          "CM", 
+          "SH", 
           "CI", 
-          "SH" 
+          "CM" 
       ] 
   }
   },
