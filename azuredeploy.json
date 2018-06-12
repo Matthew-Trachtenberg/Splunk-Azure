@@ -240,7 +240,15 @@
       "metadata": {
         "description": "Count of search head nodes"
       }
-    }
+    },
+    "SplunkRole": { 
+      "type": "array", 
+      "defaultValue": [ 
+          "CM", 
+          "CI", 
+          "SH" 
+      ] 
+  }
   },
   "variables": {
     "templateAPIVersion": "2015-01-01",
@@ -374,7 +382,7 @@
       }
     },
     "availabilitySetSettings": {
-      "name": "[concat,'AS-SPLK_',(parameters('virtualNetworkName'), '-PROD-USE2')]",
+      "name": "[concat('AS-SPLK_', parameters('SplunkRole')[copyIndex()],'-PROD-USE2')]",
       "count": "[variables('tshirtSize').availabilitySetCount]",
       "fdCount": 3,
       "udCount": 5
