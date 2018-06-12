@@ -48,7 +48,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/availabilitySets",
-      "name": "[concat(parameters('availabilitySetSettings').namePre, parameters('SplunkRole')[copyIndex()], parameters('availabilitySetSettings').namePost)]",
+      "name": "[concat(parameters('availabilitySetSettings').namePre, parameters('splunkRole')[copyIndex()], parameters('availabilitySetSettings').namePost)]",
       "tags": {
         "provider": "[parameters('providerGuid')]"
       },
