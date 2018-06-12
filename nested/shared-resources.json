@@ -22,6 +22,9 @@
     },
     "providerGuid": {
       "type": "string"
+    },
+    "splunkRole": {
+      "type": "array"
     }
   },
   "variables": {
