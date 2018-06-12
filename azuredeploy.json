@@ -374,7 +374,7 @@
       }
     },
     "availabilitySetSettings": {
-      "name": "[concat(parameters('virtualNetworkName'), '-aset')]",
+      "name": "[concat,'AS-SPLK_',(parameters('virtualNetworkName'), '-PROD-USE2')]",
       "count": "[variables('tshirtSize').availabilitySetCount]",
       "fdCount": 3,
       "udCount": 5
