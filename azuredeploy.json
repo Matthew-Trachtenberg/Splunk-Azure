@@ -434,7 +434,7 @@
             "value": "[variables('providerGuid')]"
           },
           "splunkRole": {
-            "value": "[pararmeter('splunkRole')]"
+            "value": "[parameters('splunkRole')]"
           }
         }
       }
