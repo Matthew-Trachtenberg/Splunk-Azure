@@ -4,7 +4,7 @@
   "parameters": {
     "location": {
       "type": "string",
-      "defaultValue": "East US",
+      "defaultValue": "East US 2",
       "metadata": {
         "description": "Location where resources will be provisioned"
       }
@@ -115,7 +115,7 @@
     },
     "virtualNetworkNewOrExisting": {
       "type": "string",
-      "defaultValue": "new",
+      "defaultValue": "existing",
       "allowedValues": [
         "new",
         "existing"
@@ -133,51 +133,30 @@
     },
     "virtualNetworkAddressPrefix": {
       "type": "string",
-      "defaultValue": "10.0.0.0/16",
+      "defaultValue": "10.0.0.0/8",
       "metadata": {
         "description": "Virtual network address CIDR"
       }
     },
     "subnet1Name": {
       "type": "string",
-      "defaultValue": "shsubnet",
+      "defaultValue": "SN-10.164.8.0_26",
       "metadata": {
-        "description": "Subnet for the Search Head"
-      }
-    },
-    "subnet2Name": {
-      "type": "string",
-      "defaultValue": "idxsubnet",
-      "metadata": {
-        "description": "Subnet for the Indexers"
+        "description": "Subnet for Splunk"
       }
     },
     "subnet1Prefix": {
       "type": "string",
-      "defaultValue": "10.0.0.0/24",
+      "defaultValue": "10.164.8.0/26",
       "metadata": {
-        "description": "Search Head subnet CIDR"
-      }
-    },
-    "subnet2Prefix": {
-      "type": "string",
-      "defaultValue": "10.0.1.0/24",
-      "metadata": {
-        "description": "Indexer subnet CIDR"
+        "description": "Subnet for Splunk CIDR"
       }
     },
     "subnet1StartAddress": {
       "type": "string",
-      "defaultValue": "10.0.0.20",
+      "defaultValue": "10.164.8.1",
       "metadata": {
         "description": "Search Head subnet start address"
-      }
-    },
-    "subnet2StartAddress": {
-      "type": "string",
-      "defaultValue": "10.0.1.20",
-      "metadata": {
-        "description": "Indexer subnet start address"
       }
     },
     "sshFrom": {
