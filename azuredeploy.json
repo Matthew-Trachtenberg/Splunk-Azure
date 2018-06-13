@@ -161,7 +161,7 @@
       },
     "subnet1EndAddress": {
        "type": "string",
-       "defaultValue": "10.164.8.63",
+       "defaultValue": "10.164.8.62",
        "metadata": {
         "description": "Search Head subnet start address"
       }
