@@ -320,43 +320,34 @@
       }
     },
     "tshirtSize": "[variables(concat('tshirtSize', parameters('deploymentType')))]",
-    "sa2": "[parameters('subnet2StartAddress')]",
-    "sa3": "[parameters('subnet1StartAddress')]",
+    "sa2": "[parameters('subnet1StartAddress')]",
     "ipOctet01": "[concat(split(variables('sa2'), '.')[0], '.', split(variables('sa2'), '.')[1], '.')]",
     "ipOctet2": "[int(split(variables('sa2'), '.')[2])]",
     "ipOctet3": "[int(split(variables('sa2'), '.')[3])]",
-    "ipOctet001": "[concat(split(variables('sa3'), '.')[0], '.', split(variables('sa3'), '.')[1], '.')]",
-    "ipOctet02": "[int(split(variables('sa3'), '.')[2])]",
-    "ipOctet03": "[int(split(variables('sa3'), '.')[3])]",
     "networkSettings": {
       "virtualNetworkName": "[parameters('virtualNetworkName')]",
       "virtualNetworkExistingRGName": "[parameters('virtualNetworkExistingRGName')]",
       "virtualNetworkAddressPrefix": "[parameters('virtualNetworkAddressPrefix')]",
       "subnet": {
-        "sh": {
+        "SN-10.164.8.0_26": {
           "name": "[parameters('subnet1Name')]",
           "prefix": "[parameters('subnet1Prefix')]",
-          "vnet": "[parameters('virtualNetworkName')]"
-        },
-        "idx": {
-          "name": "[parameters('subnet2Name')]",
-          "prefix": "[parameters('subnet2Prefix')]",
           "vnet": "[parameters('virtualNetworkName')]"
         }
       },
       "statics": {
         "standaloneIp": "[parameters('subnet1StartAddress')]",
         "clusterSearchheadIp": "[parameters('subnet1StartAddress')]",
-        "clusterMasterIp": "[parameters('subnet2StartAddress')]",
+        "clusterMasterIp": "[parameters('subnet1StartAddress')]",
         "indexerIps": {
           "ipOctet01": "[variables('ipOctet01')]",
           "ipOctet2": "[add(variables('ipOctet2'), div(add(variables('ipOctet3'), 1), 255))]",
           "ipOctet3": "[mod(add(variables('ipOctet3'), 1), 255)]"
         },
         "deployServerIps": {
-          "ipOctet01": "[variables('ipOctet001')]",
-          "ipOctet2": "[add(variables('ipOctet02'), div(add(variables('ipOctet03'), 1), 255))]",
-          "ipOctet3": "[mod(add(variables('ipOctet03'), 1), 255)]"
+          "ipOctet01": "[variables('ipOctet01')]",
+          "ipOctet2": "[add(variables('ipOctet2'), div(add(variables('ipOctet3'), 1), 255))]",
+          "ipOctet3": "[mod(add(variables('ipOctet3'), 1), 255)]"
         }
       }
     },
@@ -383,7 +374,6 @@
     "vnetId-existing": "[resourceId(parameters('virtualNetworkExistingRGName'),'Microsoft.Network/virtualNetworks/',parameters('virtualNetworkName'))]",
     "vnetId": "[variables(concat('vnetId-', parameters('virtualNetworkNewOrExisting')))]",
     "subnet1Ref": "[concat(variables('vnetId'),'/subnets/',parameters('subnet1Name'))]",
-    "subnet2Ref": "[concat(variables('vnetId'),'/subnets/',parameters('subnet2Name'))]",
     "providerGuid": "[toUpper('7d69ff10-1a05-4353-b69d-0e87c3382e96')]",
     "storageAccountType": "Standard_LRS",
     "lbID": "[resourceId('Microsoft.Network/loadBalancers',parameters('loadBalancerName'))]"
@@ -550,7 +540,7 @@
             "value": "[parameters('location')]"
           },
           "subnet": {
-            "value": "[variables('subnet2Ref')]"
+            "value": "[variables('subnet1Ref')]"
           },
           "templateBaseUrl": {
             "value": "[concat(variables('templateBaseUrl'), 'nested/')]"
@@ -744,7 +734,7 @@
             "value": "[parameters('location')]"
           },
           "subnet": {
-            "value": "[variables('subnet2Ref')]"
+            "value": "[variables('subnet1Ref')]"
           },
           "templateBaseUrl": {
             "value": "[concat(variables('templateBaseUrl'), 'nested/')]"
@@ -772,7 +762,7 @@
         },
         "parameters": {
           "namespace": {
-            "value": "cp"
+            "value": "ci"
           },
           "machineSettings": {
             "value": {
@@ -808,7 +798,7 @@
             "value": "[parameters('location')]"
           },
           "subnet": {
-            "value": "[variables('subnet2Ref')]"
+            "value": "[variables('subnet1Ref')]"
           },
           "templateBaseUrl": {
             "value": "[concat(variables('templateBaseUrl'), 'nested/')]"
