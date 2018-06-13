@@ -640,7 +640,7 @@
         },
         "parameters": {
           "namespace": {
-            "value": "ds"
+            "value": "SPLSDSPR"
           },
           "machineSettings": {
             "value": {
