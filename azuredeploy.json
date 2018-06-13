@@ -832,7 +832,7 @@
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Resources/deployments/', 'virtual-network')]",
-        "[concat('Microsoft.Resources/deployments/', 'parameters('storageAccountNameLoadBalancer')')]"
+        "[concat('Microsoft.Resources/deployments/', 'shared')]"      
       ],
       "properties": {
         "frontendIPConfigurations": [
