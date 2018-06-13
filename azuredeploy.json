@@ -513,7 +513,7 @@
         },
         "parameters": {
           "namespace": {
-            "value": "cm"
+            "value": "SPLSCMPR"
           },
           "machineSettings": {
             "value": {
