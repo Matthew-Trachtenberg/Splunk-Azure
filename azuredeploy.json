@@ -154,7 +154,7 @@
     },
     "subnet1StartAddress": {
       "type": "string",
-      "defaultValue": "10.164.8.4",
+      "defaultValue": "10.164.8.10",
       "metadata": {
         "description": "Search Head subnet start address"
        }
@@ -230,9 +230,9 @@
     "splunkRole": { 
       "type": "array", 
       "defaultValue": [ 
-          "SH", 
+          "CM", 
           "CI", 
-          "CM" 
+          "SH" 
       ] 
   }
   },
@@ -585,7 +585,7 @@
               "staticIps": "[variables('networkSettings').statics.indexerIps]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
-              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, parameters('splunkRole')[1], variables('availabilitySetSettings').namePost)]"
+              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, parameters('splunkRole')[2], variables('availabilitySetSettings').namePost)]"
             }
           },
           "storageSettings": {
@@ -650,7 +650,7 @@
               "staticIps": "[variables('networkSettings').statics.deployServerIps]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
-              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, parameters('splunkRole')[1], variables('availabilitySetSettings').namePost)]"
+              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, parameters('splunkRole')[2], variables('availabilitySetSettings').namePost)]"
               }
           },
           "storageSettings": {
@@ -716,7 +716,7 @@
               "staticIps": "[variables('networkSettings').statics.indexerIps]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
-              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, parameters('splunkRole')[1], variables('availabilitySetSettings').namePost)]"
+              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, parameters('splunkRole')[0], variables('availabilitySetSettings').namePost)]"
               }
           },
           "storageSettings": {
@@ -780,7 +780,7 @@
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
               "forwardedDataFrom": "[concat(parameters('forwardedDataFrom'), '')]",
-              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, parameters('splunkRole')[2], variables('availabilitySetSettings').namePost)]"
+              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, parameters('splunkRole')[1], variables('availabilitySetSettings').namePost)]"
             }
           },
           "storageSettings": {
