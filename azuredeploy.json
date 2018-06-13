@@ -108,7 +108,7 @@
     },
     "virtualNetworkName": {
       "type": "string",
-      "defaultValue": "fnfsplunk",
+      "defaultValue": "VN-PROD-USE2-01",
       "metadata": {
         "description": "Name of the virtual network that the consumer wants to use"
       }
@@ -156,6 +156,13 @@
       "type": "string",
       "defaultValue": "10.164.8.1",
       "metadata": {
+        "description": "Search Head subnet start address"
+       }
+      },
+    "subnet1EndAddress": {
+       "type": "string",
+       "defaultValue": "10.164.8.63",
+       "metadata": {
         "description": "Search Head subnet start address"
       }
     },
@@ -338,7 +345,7 @@
       "statics": {
         "standaloneIp": "[parameters('subnet1StartAddress')]",
         "clusterSearchheadIp": "[parameters('subnet1StartAddress')]",
-        "clusterMasterIp": "[parameters('subnet1StartAddress')]",
+        "clusterMasterIp": "[parameters('subnet1EndAddress')]",
         "indexerIps": {
           "ipOctet01": "[variables('ipOctet01')]",
           "ipOctet2": "[add(variables('ipOctet2'), div(add(variables('ipOctet3'), 1), 255))]",
