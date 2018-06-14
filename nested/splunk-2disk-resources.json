@@ -49,7 +49,7 @@
     "resourceAPIVersion": "2015-06-15",
     "singleQuote": "'",
     "vmName": "[concat(parameters('namespace'), '001')]",
-    "nicName": "[concat(parameters('namespace'), 'nic1')]",
+    "nicName": "[parameters('namespace')]",
     "clusterMasterIp": "[parameters('machineSettings').clusterMasterIp]",
     "securityGroupRef": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('securityGroupName'))]",
     "storageReferenceName": "[concat('Microsoft.Storage/storageAccounts/', parameters('storageSettings').name, parameters('storageSettings').map[0])]",
@@ -59,7 +59,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[variables('nicName')]",
+      "name": "[concat(variables('vmName'), 'nic1')]",
       "tags": {
         "provider": "[parameters('providerGuid')]"
       },
