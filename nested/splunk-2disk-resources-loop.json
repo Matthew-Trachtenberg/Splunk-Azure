@@ -105,7 +105,7 @@
         "product": "[parameters('osSettings').imageReference.offer]"
       },
       "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/', concat(variables('nicName'), copyindex(1), variables('endName'), copyindex(1), variables('nicNumber') )]"
+        "[concat('Microsoft.Network/networkInterfaces/', concat(variables('nicName'), copyindex(1), variables('endName'), copyindex(1), variables('nicNumber')) )]"
       ],
       "copy": {
         "name": "vmCopyLoop",
@@ -172,7 +172,7 @@
       "location": "[parameters('location')]",
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'), copyindex())]",
-        "[concat('Microsoft.Network/networkInterfaces/', concat(variables('nicName'), copyindex(1), variables('endName'), copyindex(1), variables('nicNumber') )]"
+        "[concat('Microsoft.Network/networkInterfaces/', concat(variables('nicName'), copyindex(1), variables('endName'), copyindex(1), variables('nicNumber')) )]"
       ],
       "copy": {
         "name": "scriptCopyLoop",

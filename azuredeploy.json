@@ -568,7 +568,7 @@
         },
         "parameters": {
           "namespace": {
-            "value": "csh"
+            "value": "SPLS"
           },
           "machineSettings": {
             "value": {
