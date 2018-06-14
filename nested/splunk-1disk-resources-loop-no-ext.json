@@ -50,7 +50,7 @@
     "singleQuote": "'",
     "vmCount": "[parameters('machineSettings').vmCount]",
     "vmName": "[concat(parameters('namespace'), '00' )]",
-    "nicName": "[parameters('namespace')]",
+    "nicName": "[concat(parameters('namespace'), '00' )]",
     "nicNumber": "nic1",
     "clusterMasterIp": "[parameters('machineSettings').clusterMasterIp]",
     "securityGroupRef": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('securityGroupName'))]",
