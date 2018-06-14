@@ -64,7 +64,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(variables('nicName'), copyindex(), variables('nicNameNumber'))]",
+      "name": "[concat(variables('nicName'), copyindex())]",
       "tags": {
         "provider": "[parameters('providerGuid')]"
       },
@@ -148,7 +148,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('nicName'), copyindex(), variables('nicNameNumber')))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('nicName'), copyindex())]"
             }
           ]
         }
