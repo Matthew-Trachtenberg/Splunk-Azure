@@ -699,7 +699,7 @@
         },
         "parameters": {
           "namespace": {
-            "value": "SPLSLSPR0"
+            "value": "SPLSLSPR"
           },
           "machineSettings": {
             "value": {
