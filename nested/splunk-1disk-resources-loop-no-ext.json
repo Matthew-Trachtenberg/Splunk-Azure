@@ -63,7 +63,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(variables('nicName'), copyindex())]",
+      "name": "[concat(variables('nicName'), copyindex() + 1)]",
       "tags": {
         "provider": "[parameters('providerGuid')]"
       },
