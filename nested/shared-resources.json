@@ -35,7 +35,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageSettings').name, copyindex())]",
+      "name": "[concat(parameters('storageSettings').name, padLeft(add(copyIndex(), 1), 2, '0'))]",
       "tags": {
         "provider": "[parameters('providerGuid')]"
       },
