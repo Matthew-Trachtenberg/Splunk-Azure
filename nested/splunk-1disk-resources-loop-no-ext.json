@@ -63,7 +63,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(variables('nicName'), copyIndex() )]",
+      "name": "[concat(variables('nicName'), copyIndex(), variables('nicName') )]",
       "tags": {
         "provider": "[parameters('providerGuid')]"
       },
@@ -103,7 +103,7 @@
         "product": "[parameters('osSettings').imageReference.offer]"
       },
       "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), copyindex())]"
+        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), copyindex(), variables('nicName') )]"
       ],
       "copy": {
         "name": "vmCopyLoop",
@@ -147,7 +147,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('nicName'), copyindex()) )]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('nicName'), copyindex(), variables('nicName')) )]"
             }
           ]
         }
