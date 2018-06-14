@@ -49,8 +49,10 @@
     "resourceAPIVersion": "2015-06-15",
     "singleQuote": "'",
     "vmCount": "[parameters('machineSettings').vmCount]",
-    "vmName": "[concat(parameters('namespace'), '-vm')]",
-    "nicName": "[concat(parameters('namespace'), '-nic')]",
+    "vmName": "[concat(parameters('namespace'), '0')]",
+    "nicName": "[concat(parameters('namespace'), '0')]",
+    "endName": "SHPR00",
+    "nicNumber": "nic1",
     "clusterMasterIp": "[parameters('machineSettings').clusterMasterIp]",
     "securityGroupRef": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('securityGroupName'))]",
     "ipOctet01": "[parameters('machineSettings').staticIps.ipOctet01]",
@@ -63,7 +65,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(variables('nicName'), copyindex())]",
+      "name": "[concat(variables('nicName'), copyindex(1), variables('endName'), copyindex(1), variables('nicNumber') )]",
       "tags": {
         "provider": "[parameters('providerGuid')]"
       },
@@ -103,7 +105,7 @@
         "product": "[parameters('osSettings').imageReference.offer]"
       },
       "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), copyindex())]"
+        "[concat('Microsoft.Network/networkInterfaces/', concat(variables('nicName'), copyindex(1), variables('endName'), copyindex(1), variables('nicNumber') )]"
       ],
       "copy": {
         "name": "vmCopyLoop",
@@ -170,7 +172,7 @@
       "location": "[parameters('location')]",
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'), copyindex())]",
-        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), copyindex())]"
+        "[concat('Microsoft.Network/networkInterfaces/', concat(variables('nicName'), copyindex(1), variables('endName'), copyindex(1), variables('nicNumber') )]"
       ],
       "copy": {
         "name": "scriptCopyLoop",
