@@ -762,7 +762,7 @@
         },
         "parameters": {
           "namespace": {
-            "value": "SPLSCIPR0"
+            "value": "SPLSCIPR"
           },
           "machineSettings": {
             "value": {
