@@ -232,7 +232,7 @@
   "variables": {
     "templateAPIVersion": "2015-01-01",
     "resourceAPIVersion": "2015-06-15",
-    "storageAccountNamePrefix": "FNFsaSPLProduse2",
+    "storageAccountNamePrefix": "FNFsaSPLProduse20",
     "templateBaseUrl": "[concat(parameters('templateLocation'), '/')]",
     "sharedTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'shared-resources.json')]",
     "virtualNetworkTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'vnet-', parameters('virtualNetworkNewOrExisting'), '.json')]",
