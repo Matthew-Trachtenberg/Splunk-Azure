@@ -49,8 +49,9 @@
     "resourceAPIVersion": "2015-06-15",
     "singleQuote": "'",
     "vmCount": "[parameters('machineSettings').vmCount]",
-    "vmName": "[parameters('namespace')]",
-    "nicName": "[parameters('namespace')]",
+    "vmName": "[concat(parameters('namespace'), '0')]",
+    "nicName": "[concat(parameters('namespace'), '0')]",
+    "nicNumber": "nic1",
     "clusterMasterIp": "[parameters('machineSettings').clusterMasterIp]",
     "securityGroupRef": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('securityGroupName'))]",
     "ipOctet01": "[parameters('machineSettings').staticIps.ipOctet01]",
@@ -63,7 +64,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(variables('nicName'), copyindex())]",
+      "name": "[concat(variables('nicName'), copyindex(), variables('nicNumber') )]",
       "tags": {
         "provider": "[parameters('providerGuid')]"
       },
@@ -93,7 +94,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "[concat(variables('vmName'), copyindex())]",
+      "name": "[concat(variables('vmName'), copyindex() )]",
       "tags": {
         "provider": "[parameters('providerGuid')]"
       },
@@ -104,7 +105,7 @@
         "product": "[parameters('osSettings').imageReference.offer]"
       },
       "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), copyindex())]"
+        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), copyindex(), variables('nicNumber') )]"
       ],
       "copy": {
         "name": "vmCopyLoop",
@@ -118,7 +119,7 @@
           "vmSize": "[parameters('machineSettings').vmSize]"
         },
         "osProfile": {
-          "computerName": "[concat(variables('vmName'), copyindex())]",
+          "computerName": "[concat(variables('vmName'), copyindex() )]",
           "adminUsername": "[parameters('adminUsername')]",
           "adminPassword": "[parameters('adminPassword')]"
         },
@@ -218,7 +219,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('nicName'), copyindex()))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('nicName'), copyindex(), variables('nicNumber')) )]"
             }
           ]
         }
@@ -230,8 +231,8 @@
       "name": "[concat(variables('vmName'), copyindex(), '/node-setup')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'), copyindex())]",
-        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), copyindex())]"
+        "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'), copyindex() )]",
+        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), copyindex(), variables('nicNumber') )]"
       ],
       "copy": {
         "name": "scriptCopyLoop",
