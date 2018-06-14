@@ -49,7 +49,7 @@
     "resourceAPIVersion": "2015-06-15",
     "singleQuote": "'",
     "vmCount": "[parameters('machineSettings').vmCount]",
-    "vmName": "[concat(parameters('namespace'), '00')]",
+    "vmName": "[parameters('namespace')]",
     "nicName": "[concat(parameters('namespace'), '-nic')]",
     "clusterMasterIp": "[parameters('machineSettings').clusterMasterIp]",
     "securityGroupRef": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('securityGroupName'))]",
@@ -63,7 +63,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(variables('nicName'), copyindex() + 1)]",
+      "name": "[concat(variables('nicName'), padLeft(add(copyIndex(), 1), 3, 0))]",
       "tags": {
         "provider": "[parameters('providerGuid')]"
       },
