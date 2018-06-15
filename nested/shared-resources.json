@@ -82,7 +82,7 @@
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "22",
-              "sourceAddressPrefix": "[parameters('machineSettings').sshFrom]",
+              "sourceAddressPrefix": "VirtualNetwork",
               "destinationAddressPrefix": "*",
               "access": "Allow",
               "priority": 100,
