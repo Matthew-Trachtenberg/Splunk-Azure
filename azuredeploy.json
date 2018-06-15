@@ -350,14 +350,8 @@
           "CI", 
           "SH" 
       ] 
-     },
-     "loadBalancerName": {
-      "type": "string",
-      "defaultValue": "ILB-SPLK-PROD-USE2",
-      "metadata": {
-        "description": "This is the name of the load balancer"
-      }
     },
+    "loadBalancerName": "ILB-SPLK-PROD-USE2",
     "osSettings": {
       "imageReference": {
         "publisher": "splunk",
