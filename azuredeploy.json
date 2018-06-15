@@ -375,8 +375,7 @@
     "vnetId": "[variables(concat('vnetId-', parameters('virtualNetworkNewOrExisting')))]",
     "subnet1Ref": "[concat(variables('vnetId'),'/subnets/',parameters('subnet1Name'))]",
     "providerGuid": "[toUpper('7d69ff10-1a05-4353-b69d-0e87c3382e96')]",
-    "storageAccountType": "Standard_LRS",
-    "lbID": "[resourceId('Microsoft.Network/loadBalancers',variables('loadBalancerName'))]"
+    "storageAccountType": "Standard_LRS"
   },
   "resources": [
     {
