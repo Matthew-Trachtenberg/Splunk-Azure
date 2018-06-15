@@ -119,7 +119,7 @@
           "vmSize": "[parameters('machineSettings').vmSize]"
         },
         "osProfile": {
-          "computerName": "[concat(variables('vmName'), copyindex(1), variables('endName'), copyindex(1))]",
+          "computerName": "[concat(variables('vmName'), copyindex(1), variables('endName'), copyindex(1) )]",
           "adminUsername": "[parameters('adminUsername')]",
           "adminPassword": "[parameters('adminPassword')]"
         },
@@ -168,7 +168,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(variables('vmName'),copyindex(1), variables('endName'), copyindex(1) '/node-setup')]",
+      "name": "[concat(variables('vmName'),copyindex(1), variables('endName'), copyindex(1), '/node-setup')]",
       "location": "[parameters('location')]",
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/', concat(variables('vmName'), copyindex(1), variables('endName'), copyindex(1)))]",
