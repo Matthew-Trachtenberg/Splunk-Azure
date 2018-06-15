@@ -36,42 +36,42 @@
     },
     "clusterMasterVmSize": {
       "type": "string",
-      "defaultValue": "Standard_D4_v2",
+      "defaultValue": "Standard_D3_v2",
       "metadata": {
         "description": "Size of cluster master VM"
       }
     },
     "deployServerVmSize": {
       "type": "string",
-      "defaultValue": "Standard_DS2_v2",
+      "defaultValue": "Standard_D2_v2",
       "metadata": {
         "description": "Size of the Deploy Server VMs"
       }
     },
     "clusterSearchheadVmSize": {
       "type": "string",
-      "defaultValue": "Standard_DS15_v2",
+      "defaultValue": "Standard_D3_v2",
       "metadata": {
         "description": "Size of cluster search head VM"
       }
     },
     "clusterIndexerVmSize": {
       "type": "string",
-      "defaultValue": "Standard_DS15_v2",
+      "defaultValue": "Standard_D3_v2",
       "metadata": {
         "description": "Size of cluster indexer VM"
       }
     },
     "LicenseVmSize": {
       "type": "string",
-      "defaultValue": "Standard_DS2_v2",
+      "defaultValue": "Standard_D3_v2",
       "metadata": {
         "description": "Size of License Server VM"
       }
     },
     "clusterIndexerVmCount": {
       "type": "int",
-      "defaultValue": 30,
+      "defaultValue": 3,
       "minValue": 3,
       "maxValue": 30,
       "metadata": {
@@ -80,28 +80,28 @@
     },
     "clusterSecret": {
       "type": "securestring",
-      "defaultValue": "",
+      "defaultValue": "Pmc8520Pmc8520",
       "metadata": {
         "description": "Security key for authentication between cluster nodes (when applicable)"
       }
     },
     "adminUsername": {
       "type": "string",
-      "defaultValue": "",
+      "defaultValue": "vcdx244",
       "metadata": {
         "description": "Username for the VMs"
       }
     },
     "adminPassword": {
       "type": "securestring",
-      "defaultValue": "",
+      "defaultValue": "Pmc8520Pmc8520",
       "metadata": {
         "description": "Password for the VMs"
       }
     },
     "splunkAdminPassword": {
       "type": "securestring",
-      "defaultValue": "",
+      "defaultValue": "Pmc8520Pmc8520",
       "metadata": {
         "description": "Password for Splunk admin"
       }
@@ -126,7 +126,7 @@
     },
     "virtualNetworkExistingRGName": {
       "type": "string",
-      "defaultValue": "FNF-RG-SplunkMonitoring",
+      "defaultValue": "",
       "metadata": {
         "description": "Name of resource group of existing Virtual Network (if applicable)"
       }
@@ -182,7 +182,7 @@
     },
     "domainNamePrefix": {
       "type": "string",
-      "defaultValue": "",
+      "defaultValue": "fnfsplunk",
       "metadata": {
         "description": "Prefix for domain name to access Splunk which is in the format: {prefix}.{location}.cloudapp.azure.com e.g. mysplunk.westus.cloudapp.azure.com. Prefix should match the following regular expression ^[a-z][a-z0-9-]{1,61}[a-z0-9]$ or it will raise an error."
       }
@@ -196,7 +196,7 @@
     },
     "templateLocation": {
       "type": "string",
-      "defaultValue": "",
+      "defaultValue": "https://raw.githubusercontent.com/paulcradduck/Splunk-Azure/master/",
       "metadata": {
         "description": "Template file location",
         "artifactsBaseUrl": "Base URL of the Publisher Template gallery package"
@@ -213,7 +213,7 @@
     },
     "searchheadVmCount": {
       "type": "int",
-      "defaultValue": 6,
+      "defaultValue": 2,
       "minValue": 1,
       "maxValue": 30,
       "metadata": {
