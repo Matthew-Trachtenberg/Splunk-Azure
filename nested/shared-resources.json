@@ -99,6 +99,20 @@
               "sourceAddressPrefix": "*",
               "destinationAddressPrefix": "*",
               "access": "Allow",
+              "priority": 105,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "Allow-Receiver-TCP",
+            "properties": {
+              "description": "Allows receiver TCP traffic on port 9997",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "9997",
+              "sourceAddressPrefix": "VirtualNetwork",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
               "priority": 110,
               "direction": "Inbound"
             }
@@ -118,6 +132,34 @@
             }
           },
           {
+            "name": "Allow-Replication-TCP",
+            "properties": {
+              "description": "Allows replication TCP traffic on port 9887 from VNET only",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "9887",
+              "sourceAddressPrefix": "VirtualNetwork",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 130,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "Allow-HTTP-Event-Collector",
+            "properties": {
+              "description": "Allows HTTP(S) Event Collector traffic on port 8088",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "8088",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 140,
+              "direction": "Inbound"
+            }
+          },
+          {
             "name": "Allow-Mgmt-From-VNET",
             "properties": {
               "description": "Allows mgmt on port 8089 from VNET only",
@@ -127,7 +169,7 @@
               "sourceAddressPrefix": "VirtualNetwork",
               "destinationAddressPrefix": "*",
               "access": "Allow",
-              "priority": 130,
+              "priority": 150,
               "direction": "Inbound"
             }
           }
