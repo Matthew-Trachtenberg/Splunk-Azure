@@ -187,13 +187,6 @@
         "description": "Prefix for domain name to access Splunk which is in the format: {prefix}.{location}.cloudapp.azure.com e.g. mysplunk.westus.cloudapp.azure.com. Prefix should match the following regular expression ^[a-z][a-z0-9-]{1,61}[a-z0-9]$ or it will raise an error."
       }
     },
-    "loadBalancerName": {
-      "type": "string",
-      "defaultValue": "ILB-SPLK-PROD-USE2",
-      "metadata": {
-        "description": "This is the name of the load balancer"
-      }
-    },
     "templateLocation": {
       "type": "string",
       "defaultValue": "https://raw.githubusercontent.com/paulcradduck/Splunk-Azure/master/",
@@ -219,15 +212,7 @@
       "metadata": {
         "description": "Count of search head nodes"
       }
-    },
-    "splunkRole": { 
-      "type": "array", 
-      "defaultValue": [ 
-          "CM", 
-          "CI", 
-          "SH" 
-      ] 
-  }
+    }
   },
   "variables": {
     "templateAPIVersion": "2015-01-01",
@@ -358,6 +343,21 @@
       "fdCount": 3,
       "udCount": 5
     },
+    "splunkRole": { 
+      "type": "array", 
+      "defaultValue": [ 
+          "CM", 
+          "CI", 
+          "SH" 
+      ] 
+     },
+     "loadBalancerName": {
+      "type": "string",
+      "defaultValue": "ILB-SPLK-PROD-USE2",
+      "metadata": {
+        "description": "This is the name of the load balancer"
+      }
+    },
     "osSettings": {
       "imageReference": {
         "publisher": "splunk",
@@ -376,7 +376,7 @@
     "subnet1Ref": "[concat(variables('vnetId'),'/subnets/',parameters('subnet1Name'))]",
     "providerGuid": "[toUpper('7d69ff10-1a05-4353-b69d-0e87c3382e96')]",
     "storageAccountType": "Standard_LRS",
-    "lbID": "[resourceId('Microsoft.Network/loadBalancers',parameters('loadBalancerName'))]"
+    "lbID": "[resourceId('Microsoft.Network/loadBalancers',variables('loadBalancerName'))]"
   },
   "resources": [
     {
@@ -403,7 +403,7 @@
             "value": "[variables('providerGuid')]"
           },
           "splunkRole": {
-            "value": "[parameters('splunkRole')]"
+            "value": "[variables('splunkRole')]"
           }
         }
       }
@@ -457,7 +457,7 @@
               "clusterMasterIp": "NA",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
               "forwardedDataFrom": "[concat(parameters('forwardedDataFrom'), '')]",
-              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, parameters('splunkRole')[0], variables('availabilitySetSettings').namePost)]"
+              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, variables('splunkRole')[0], variables('availabilitySetSettings').namePost)]"
             }
           },
           "storageSettings": {
@@ -515,7 +515,7 @@
               "staticIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "clusterMasterIp": "NA",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
-              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, parameters('splunkRole')[0], variables('availabilitySetSettings').namePost)]"
+              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, variables('splunkRole')[0], variables('availabilitySetSettings').namePost)]"
             }
           },
           "storageSettings": {
@@ -578,7 +578,7 @@
               "staticIps": "[variables('networkSettings').statics.indexerIps]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
-              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, parameters('splunkRole')[2], variables('availabilitySetSettings').namePost)]"
+              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, variables('splunkRole')[2], variables('availabilitySetSettings').namePost)]"
             }
           },
           "storageSettings": {
@@ -643,7 +643,7 @@
               "staticIps": "[variables('networkSettings').statics.deployServerIps]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
-              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, parameters('splunkRole')[2], variables('availabilitySetSettings').namePost)]"
+              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, variables('splunkRole')[2], variables('availabilitySetSettings').namePost)]"
               }
           },
           "storageSettings": {
@@ -709,7 +709,7 @@
               "staticIps": "[variables('networkSettings').statics.indexerIps]",
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
-              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, parameters('splunkRole')[0], variables('availabilitySetSettings').namePost)]"
+              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, variables('splunkRole')[0], variables('availabilitySetSettings').namePost)]"
               }
           },
           "storageSettings": {
@@ -773,7 +773,7 @@
               "clusterMasterIp": "[variables('networkSettings').statics.clusterMasterIp]",
               "sshFrom": "[concat(parameters('sshFrom'), '')]",
               "forwardedDataFrom": "[concat(parameters('forwardedDataFrom'), '')]",
-              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, parameters('splunkRole')[1], variables('availabilitySetSettings').namePost)]"
+              "availabilitySet": "[concat(variables('availabilitySetSettings').namePre, variables('splunkRole')[1], variables('availabilitySetSettings').namePost)]"
             }
           },
           "storageSettings": {
@@ -830,7 +830,7 @@
     {
       "apiVersion": "2017-10-01",
       "type": "Microsoft.Network/loadBalancers",
-      "name": "[parameters('loadBalancerName')]",
+      "name": "[variables('loadBalancerName')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Resources/deployments/', 'virtual-network')]",
@@ -857,13 +857,13 @@
           {
             "properties": {
               "frontendIPConfiguration": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/frontendIpConfigurations/LoadBalancerFrontend')]"
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('loadBalancerName')), '/frontendIpConfigurations/LoadBalancerFrontend')]"
               },
               "backendAddressPool": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/backendAddressPools/BackendPool1')]"
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('loadBalancerName')), '/backendAddressPools/BackendPool1')]"
               },
               "probe": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/probes/lbprobe443')]"
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('loadBalancerName')), '/probes/lbprobe443')]"
               },
               "protocol": "Tcp",
               "frontendPort": 443,
