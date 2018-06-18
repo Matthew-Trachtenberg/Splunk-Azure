@@ -850,7 +850,7 @@
         ],
         "backendAddressPools": [
           {
-            "name": "SPLS01SHPR"
+            "name": "ClusterSPLS01SHPR"
           }
         ],
         "loadBalancingRules": [
@@ -860,10 +860,10 @@
                 "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/frontendIpConfigurations/SPLS01SHPR')]"
               },
               "backendAddressPool": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/backendAddressPools/SPLS01SHPR')]"
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/backendAddressPools/ClusterSPLS01SHPR')]"
               },
               "probe": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/probes/lbprobe443')]"
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/probes/splkLBprobeTCP443')]"
               },
               "protocol": "Tcp",
               "frontendPort": 443,
