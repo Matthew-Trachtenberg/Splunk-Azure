@@ -849,9 +849,6 @@
           },
           {
             "properties": {
-              "subnet": {
-                "id": "[variables('subnet1Ref')]"
-              },
               "privateIPAllocationMethod": "Static",
               "subnet": {
                 "id": "[variables('subnet1Ref')]"
@@ -886,7 +883,7 @@
               "backendPort": 443,
               "idleTimeoutInMinutes": 5
             },
-            "Name": "splSHprobe443"
+            "Name": "spl443"
           }
         ],
         "probes": [
