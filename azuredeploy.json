@@ -845,25 +845,12 @@
               },
               "privateIPAllocationMethod": "Dynamic"
             },
-            "name": "SPLS01SHPR"
-          },
-          {
-            "properties": {
-              "privateIPAllocationMethod": "Static",
-              "subnet": {
-                "id": "[variables('subnet1Ref')]"
-            },
-            "privateIPAddress": "10.164.8.60"
-            },
-            "name": "SPLS02SHPR"
+            "name": "LoadBalancerFrontend"
           }
         ],
         "backendAddressPools": [
           {
-            "name": "SPLS01SHPR"
-          },
-          {
-            "name": "SPLS02SHPR"
+            "name": "BackendPool1"
           }
         ],
         "loadBalancingRules": [
@@ -873,17 +860,17 @@
                 "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/frontendIpConfigurations/LoadBalancerFrontend')]"
               },
               "backendAddressPool": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/backendAddressPools/SPLS01SHPR')]"
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/backendAddressPools/BackendPool1')]"
               },
               "probe": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/probes/splSHprobe443')]"
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/probes/lbprobe443')]"
               },
               "protocol": "Tcp",
               "frontendPort": 443,
               "backendPort": 443,
               "idleTimeoutInMinutes": 5
             },
-            "Name": "spl443"
+            "Name": "lbrule443"
           }
         ],
         "probes": [
@@ -894,7 +881,7 @@
               "intervalInSeconds": 15,
               "numberOfProbes": 2
             },
-            "name": "splSHprobe443"
+            "name": "lbprobe443"
           }
         ]
       }
