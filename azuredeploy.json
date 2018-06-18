@@ -839,7 +839,7 @@
       "properties": {
         "frontendIPConfigurations": [
           {
-            "name": "LoadBalancerFrontEnd",
+            "name": "SPLS01SHPR",
             "properties": {
                 "privateIPAllocationMethod": "Static",
                 "subnet": {
@@ -850,17 +850,17 @@
         ],
         "backendAddressPools": [
           {
-            "name": "BackendPool1"
+            "name": "SPLS01SHPR"
           }
         ],
         "loadBalancingRules": [
           {
             "properties": {
               "frontendIPConfiguration": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/frontendIpConfigurations/LoadBalancerFrontend')]"
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/frontendIpConfigurations/SPLS01SHPR')]"
               },
               "backendAddressPool": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/backendAddressPools/BackendPool1')]"
+                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/backendAddressPools/SPLS01SHPR')]"
               },
               "probe": {
                 "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/probes/lbprobe443')]"
@@ -870,7 +870,7 @@
               "backendPort": 443,
               "idleTimeoutInMinutes": 5
             },
-            "Name": "lbrule443"
+            "Name": "splkLBruleTCP443"
           }
         ],
         "probes": [
@@ -881,7 +881,7 @@
               "intervalInSeconds": 15,
               "numberOfProbes": 2
             },
-            "name": "lbprobe443"
+            "name": "splkLBprobeTCP443"
           }
         ]
       }
