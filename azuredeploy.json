@@ -839,13 +839,13 @@
       "properties": {
         "frontendIPConfigurations": [
           {
+            "name": "LoadBalancerFrontEnd",
             "properties": {
-              "subnet": {
-                "id": "[variables('subnet1Ref')]"
-              },
-              "privateIPAllocationMethod": "Dynamic"
-            },
-            "name": "LoadBalancerFrontend"
+                "privateIPAllocationMethod": "Static",
+                "subnet": {
+                    "id": "[variables('subnet1Ref')]"
+                },
+                "privateIPAddress": "10.164.8.60" }
           }
         ],
         "backendAddressPools": [
