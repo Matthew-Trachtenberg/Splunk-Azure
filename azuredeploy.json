@@ -832,6 +832,9 @@
       "type": "Microsoft.Network/loadBalancers",
       "name": "[parameters('loadBalancerName')]",
       "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "Standard"
+      },
       "dependsOn": [
         "[concat('Microsoft.Resources/deployments/', 'virtual-network')]",
         "[concat('Microsoft.Resources/deployments/', 'shared')]"      
