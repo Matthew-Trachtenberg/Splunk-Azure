@@ -47,6 +47,7 @@
   "variables": {
     "templateAPIVersion": "2015-01-01",
     "resourceAPIVersion": "2015-06-15",
+    "asgName": "ASG-SPLK_CI",
     "singleQuote": "'",
     "vmCount": "[parameters('machineSettings').vmCount]",
     "vmName": "[concat(parameters('namespace'), '0')]",
@@ -85,7 +86,12 @@
               "privateIPAddress": "[concat(variables('ipOctet01'), add(variables('ipOctet2'), div(copyindex(variables('ipOctet3')), 255)), '.', mod(copyindex(variables('ipOctet3')), 255))]",
               "subnet": {
                 "id": "[parameters('subnet')]"
-              }
+              },
+              "applicationSecurityGroups": [
+                {
+                    "id": "[resourceId('Microsoft.Network/applicationSecurityGroups',variables('asgName'))]"
+                }
+            ]
             }
           }
         ]
