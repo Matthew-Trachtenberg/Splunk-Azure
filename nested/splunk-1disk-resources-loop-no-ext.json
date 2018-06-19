@@ -40,9 +40,6 @@
     "securityGroupName": {
       "type": "string"
     },
-    "asgName": {
-      "type": "string"
-    },
     "providerGuid": {
       "type": "string"
     }
@@ -50,7 +47,7 @@
   "variables": {
     "templateAPIVersion": "2015-01-01",
     "resourceAPIVersion": "2015-06-15",
-    "asgName" :"ASG-SPLK_CM_SH_DS_LS",
+    "asgName": "ASG-SPLK_CM_SH_DS_LS",
     "singleQuote": "'",
     "vmCount": "[parameters('machineSettings').vmCount]",
     "vmName": "[concat(parameters('namespace'), '00' )]",
