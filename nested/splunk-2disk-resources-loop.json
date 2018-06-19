@@ -47,6 +47,7 @@
   "variables": {
     "templateAPIVersion": "2015-01-01",
     "resourceAPIVersion": "2015-06-15",
+    "asgName" :"ASG-SPLK_CM_SH_DS_LS",
     "singleQuote": "'",
     "vmCount": "[parameters('machineSettings').vmCount]",
     "vmName": "[concat(parameters('namespace'), '0')]",
@@ -63,7 +64,7 @@
   },
   "resources": [
     {
-      "apiVersion": "2015-06-15",
+      "apiVersion": "2017-09-01",
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[concat(variables('nicName'), copyindex(1), variables('endName'), copyindex(1), variables('nicNumber') )]",
       "tags": {
@@ -85,7 +86,12 @@
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
                 "id": "[parameters('subnet')]"
-              }
+              },
+              "applicationSecurityGroups": [
+                {
+                    "id": "[resourceId('Microsoft.Network/applicationSecurityGroups',variables('asgName'))]"
+                }
+            ]
             }
           }
         ]
