@@ -218,7 +218,11 @@
       "maxValue": 30,
       "metadata": {
         "description": "Count of search head nodes"
-      }
+      },
+    "lbsku": {
+        "type": "string",
+        "value": "Standard"
+    }
     },
     "splunkRole": { 
       "type": "array", 
@@ -828,68 +832,32 @@
       }
     },
     {
-      "apiVersion": "2018-02-01",
+      "apiVersion": "2017-08-01",
+      "name": "ILB-SPLK-PROD-USE2",
       "type": "Microsoft.Network/loadBalancers",
-      "name": "[parameters('loadBalancerName')]",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "sku": {
-        "name": "Standard",
-        "tier": "Regional"   
-     },
+          "name": "[parameters('lbsku')]"
+      },
       "dependsOn": [
         "[concat('Microsoft.Resources/deployments/', 'virtual-network')]",
-        "[concat('Microsoft.Resources/deployments/', 'shared')]"      
+        "[concat('Microsoft.Resources/deployments/', 'shared')]"
       ],
       "properties": {
-        "frontendIPConfigurations": [
-          {
-            "name": "SPLS01SHPR",
-            "properties": {
-                "privateIPAllocationMethod": "Static",
-                "subnet": {
-                    "id": "[variables('subnet1Ref')]"
-                },
-                "privateIPAddress": "10.164.8.60" }
-          }
-        ],
-        "backendAddressPools": [
-          {
-            "name": "ClusterSPLS01SHPR"
-          }
-        ],
-        "loadBalancingRules": [
-          {
-            "properties": {
-              "frontendIPConfiguration": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/frontendIpConfigurations/SPLS01SHPR')]"
-              },
-              "backendAddressPool": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/backendAddressPools/ClusterSPLS01SHPR')]"
-              },
-              "probe": {
-                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName')), '/probes/splkLBprobeTCP443')]"
-              },
-              "protocol": "Tcp",
-              "frontendPort": 443,
-              "backendPort": 443,
-              "idleTimeoutInMinutes": 5
-            },
-            "Name": "splkLBruleTCP443"
-          }
-        ],
-        "probes": [
-          {
-            "properties": {
-              "protocol": "Tcp",
-              "port": 443,
-              "intervalInSeconds": 15,
-              "numberOfProbes": 2
-            },
-            "name": "splkLBprobeTCP443"
-          }
-        ]
+          "frontendIPConfigurations": [
+              {
+                  "name": "LoadBalancerFrontEnd",
+                  "properties": {
+                      "privateIPAllocationMethod": "Static",
+                      "subnet": {
+                          "id": "[variables('subnet1Ref')]"
+                      },
+                      "privateIPAddress": "10.164.8.60"
+                  }
+              }
+          ]
       }
-    }  
+  }
   ],
   "outputs": {
     "SplunkURL": {
