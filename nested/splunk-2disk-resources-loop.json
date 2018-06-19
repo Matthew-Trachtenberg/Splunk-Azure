@@ -46,8 +46,7 @@
   },
   "variables": {
     "templateAPIVersion": "2015-01-01",
-    "resourceAPIVersion": "2017-09-01",
-    "asgName": "ASG-SPLK_CM_SH_DS_LS",
+    "resourceAPIVersion": "2015-06-15",
     "singleQuote": "'",
     "vmCount": "[parameters('machineSettings').vmCount]",
     "vmName": "[concat(parameters('namespace'), '0')]",
@@ -64,7 +63,7 @@
   },
   "resources": [
     {
-      "apiVersion": "2017-09-01",
+      "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[concat(variables('nicName'), copyindex(1), variables('endName'), copyindex(1), variables('nicNumber') )]",
       "tags": {
@@ -86,19 +85,14 @@
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
                 "id": "[parameters('subnet')]"
-              },
-              "applicationSecurityGroups": [
-                {
-                    "id": "[resourceId('Microsoft.Network/applicationSecurityGroups',variables('asgName'))]"
-                }
-            ]
+              }
             }
           }
         ]
       }
     },
     {
-      "apiVersion": "2017-09-01",
+      "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[concat(variables('vmName'), copyindex(1), variables('endName'), copyindex(1) )]",
       "tags": {
@@ -172,7 +166,7 @@
       }
     },
     {
-      "apiVersion": "2017-09-01",
+      "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(variables('vmName'),copyindex(1), variables('endName'), copyindex(1), '/node-setup')]",
       "location": "[parameters('location')]",

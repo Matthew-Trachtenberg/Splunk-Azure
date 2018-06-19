@@ -41,7 +41,7 @@
   },
   "variables": {
     "templateAPIVersion": "2015-01-01",
-    "resourceAPIVersion": "2017-09-01",
+    "resourceAPIVersion": "2015-06-15",
     "splunkServerRole": "splunk_deploy_server",
     "securityGroupName": "NSG-SN-10.164.8.0_26",
     "splunkTemplateUrl": "[concat(parameters('templateBaseUrl'), 'splunk-1disk-resources-loop-no-ext.json')]"
