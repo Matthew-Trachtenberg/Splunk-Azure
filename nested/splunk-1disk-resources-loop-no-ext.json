@@ -40,9 +40,6 @@
     "securityGroupName": {
       "type": "string"
     },
-    "asgName": {
-      "type": "string"
-    },
     "providerGuid": {
       "type": "string"
     }
