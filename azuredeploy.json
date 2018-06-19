@@ -231,7 +231,7 @@
   },
   "variables": {
     "templateAPIVersion": "2015-01-01",
-    "resourceAPIVersion": "2015-06-15",
+    "resourceAPIVersion": "2017-09-01",
     "storageAccountNamePrefix": "fnfsasplproduse20",
     "templateBaseUrl": "[concat(parameters('templateLocation'), '/')]",
     "sharedTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'shared-resources.json')]",

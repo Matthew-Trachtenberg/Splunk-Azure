@@ -41,7 +41,7 @@
   },
   "variables": {
     "templateAPIVersion": "2015-01-01",
-    "resourceAPIVersion": "2015-06-15",
+    "resourceAPIVersion": "2017-09-01",
     "splunkServerRole": "splunk_cluster_search_head",
     "securityGroupName": "NSG-SN-10.164.8.0_26",
     "splunkTemplateUrl": "[concat(parameters('templateBaseUrl'), 'splunk-2disk-resources-loop.json')]"

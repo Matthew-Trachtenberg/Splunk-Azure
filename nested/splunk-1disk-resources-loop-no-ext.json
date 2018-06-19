@@ -46,7 +46,7 @@
   },
   "variables": {
     "templateAPIVersion": "2015-01-01",
-    "resourceAPIVersion": "2015-06-15",
+    "resourceAPIVersion": "2017-09-01",
     "asgName": "ASG-SPLK_CM_SH_DS_LS",
     "singleQuote": "'",
     "vmCount": "[parameters('machineSettings').vmCount]",
@@ -97,7 +97,7 @@
       }
     },
     {
-      "apiVersion": "2015-06-15",
+      "apiVersion": "2017-09-01",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[concat(variables('vmName'), copyindex(1))]",
       "tags": {

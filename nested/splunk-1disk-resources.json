@@ -46,7 +46,7 @@
   },
   "variables": {
     "templateAPIVersion": "2015-01-01",
-    "resourceAPIVersion": "2015-06-15",
+    "resourceAPIVersion": "2017-09-01",
     "asgName": "ASG-SPLK_CM_SH_DS_LS",
     "singleQuote": "'",
     "vmName": "[concat(parameters('namespace'), '-vm')]",
@@ -92,7 +92,7 @@
       }
     },
     {
-      "apiVersion": "2015-06-15",
+      "apiVersion": "2017-09-01",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[variables('vmName')]",
       "tags": {
@@ -152,7 +152,7 @@
       }
     },
     {
-      "apiVersion": "2015-06-15",
+      "apiVersion": "2017-09-01",
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(variables('vmName'), '/node-setup')]",
       "location": "[parameters('location')]",
