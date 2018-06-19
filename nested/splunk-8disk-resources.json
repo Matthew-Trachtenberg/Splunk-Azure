@@ -47,6 +47,7 @@
   "variables": {
     "templateAPIVersion": "2015-01-01",
     "resourceAPIVersion": "2015-06-15",
+    "asgName" :"ASG-SPLK_CI",
     "singleQuote": "'",
     "vmName": "[concat(parameters('namespace'), '-vm')]",
     "nicName": "[concat(parameters('namespace'), '-nic')]",
@@ -57,7 +58,7 @@
   },
   "resources": [
     {
-      "apiVersion": "2015-06-15",
+      "apiVersion": "2017-09-01",
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('nicName')]",
       "tags": {
@@ -76,7 +77,12 @@
               "privateIPAddress": "[parameters('machineSettings').staticIp]",
               "subnet": {
                 "id": "[parameters('subnet')]"
-              }
+              },
+              "applicationSecurityGroups": [
+                {
+                    "id": "[resourceId('Microsoft.Network/applicationSecurityGroups',variables('asgName'))]"
+                }
+            ]
             }
           }
         ]
