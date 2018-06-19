@@ -218,11 +218,11 @@
       "maxValue": 30,
       "metadata": {
         "description": "Count of search head nodes"
-      },
+      }
+    },
     "lbsku": {
         "type": "string",
-        "value": "Standard"
-    }
+        "defaultValue": "Standard"
     },
     "splunkRole": { 
       "type": "array", 
