@@ -893,6 +893,26 @@
               },
               "name": "TCP8089"
             }
+          ],
+          "loadBalancingRules": [
+            {
+              "name": "SPLS01SHPRTCP443",
+              "properties": {
+                "frontendIPConfiguration": {
+                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', 'ILB-SPLK-PROD-USE2'), '/frontendIpConfigurations/SPLS01SHPR')]"
+                },
+                "backendAddressPool": {
+                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', 'ILB-SPLK-PROD-USE2'), '/backendAddressPools/ClusterSPLS01SHPR')]"
+                },
+                "probe": {
+                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', 'ILB-SPLK-PROD-USE2'), '/probes/TCP443')]"
+                },
+                "protocol": "Tcp",
+                "frontendPort": 443,
+                "backendPort": 443,
+                "idleTimeoutInMinutes": 5
+               }
+            }
           ]
       }
   }
