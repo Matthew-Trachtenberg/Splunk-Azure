@@ -930,6 +930,42 @@
                 "backendPort": 8089,
                 "idleTimeoutInMinutes": 5
                }
+            },
+            {
+              "name": "SPLS02SHPRTCP443",
+              "properties": {
+                "frontendIPConfiguration": {
+                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', 'ILB-SPLK-PROD-USE2'), '/frontendIpConfigurations/SPLS02SHPR')]"
+                },
+                "backendAddressPool": {
+                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', 'ILB-SPLK-PROD-USE2'), '/backendAddressPools/ClusterSPLS02SHPR')]"
+                },
+                "probe": {
+                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', 'ILB-SPLK-PROD-USE2'), '/probes/TCP443')]"
+                },
+                "protocol": "Tcp",
+                "frontendPort": 443,
+                "backendPort": 8000,
+                "idleTimeoutInMinutes": 5
+               }
+            },
+            {
+              "name": "SPLS02SHPRTCP8089",
+              "properties": {
+                "frontendIPConfiguration": {
+                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', 'ILB-SPLK-PROD-USE2'), '/frontendIpConfigurations/SPLS02SHPR')]"
+                },
+                "backendAddressPool": {
+                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', 'ILB-SPLK-PROD-USE2'), '/backendAddressPools/ClusterSPLS02SHPR')]"
+                },
+                "probe": {
+                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', 'ILB-SPLK-PROD-USE2'), '/probes/TCP8089')]"
+                },
+                "protocol": "Tcp",
+                "frontendPort": 8089,
+                "backendPort": 8089,
+                "idleTimeoutInMinutes": 5
+               }
             }
           ]
       }
