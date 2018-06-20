@@ -866,6 +866,14 @@
                 }
             }
           ],
+          "backendAddressPools": [
+            {
+              "name": "ClusterSPLS01SHPR"
+            },
+            {
+              "name": "ClusterSPLS02SHPR"
+            }
+          ],
           "probes": [
             {
               "properties": {
