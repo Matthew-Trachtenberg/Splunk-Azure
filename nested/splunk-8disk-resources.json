@@ -65,7 +65,7 @@
       },
       "location": "[parameters('location')]",
       "properties": {
-        "networkSecurityGroups": {
+        "networkSecurityGroup": {
           "id": "[parameters('securityGroupName')]"
         },
         "ipConfigurations": [

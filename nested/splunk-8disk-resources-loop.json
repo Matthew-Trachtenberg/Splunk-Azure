@@ -74,7 +74,7 @@
         "count": "[variables('vmCount')]"
       },
       "properties": {
-        "networkSecurityGroups": {
+        "networkSecurityGroup": {
           "id": "[parameters('securityGroupName')]"
         },
         "ipConfigurations": [
