@@ -55,7 +55,7 @@
     "ipOctet01": "[parameters('machineSettings').staticIps.ipOctet01]",
     "ipOctet2": "[parameters('machineSettings').staticIps.ipOctet2]",
     "ipOctet3": "[parameters('machineSettings').staticIps.ipOctet3]",
-    "securityGroupRef": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('securityGroupName'))]",
+    "securityGroupRef": "[parameters('securityGroupName')]",
     "storageReferenceName": "[concat('Microsoft.Storage/storageAccounts/', parameters('storageSettings').name, parameters('storageSettings').map[0])]",
     "storageApiVersion": "[providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]]"
   },

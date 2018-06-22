@@ -55,7 +55,7 @@
     "endName": "SHPR00",
     "nicNumber": "nic1",
     "clusterMasterIp": "[parameters('machineSettings').clusterMasterIp]",
-    "securityGroupRef": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('securityGroupName'))]",
+    "securityGroupRef": "[parameters('securityGroupName')]",
     "ipOctet01": "[parameters('machineSettings').staticIps.ipOctet01]",
     "ipOctet2": "[parameters('machineSettings').staticIps.ipOctet2]",
     "ipOctet3": "[parameters('machineSettings').staticIps.ipOctet3]",
