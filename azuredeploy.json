@@ -145,6 +145,13 @@
         "description": "Subnet for Splunk"
       }
     },
+    "nsg1Name": {
+      "type": "string",
+      "defaultValue": "nsg-sn-10.164.8.0_26",
+      "metadata": {
+        "description": "Subnet for Splunk"
+      }
+    },
     "subnet1Prefix": {
       "type": "string",
       "defaultValue": "10.164.8.0/26",
@@ -378,6 +385,9 @@
     "vnetId-existing": "[resourceId(parameters('virtualNetworkExistingRGName'),'Microsoft.Network/virtualNetworks/',parameters('virtualNetworkName'))]",
     "vnetId": "[variables(concat('vnetId-', parameters('virtualNetworkNewOrExisting')))]",
     "subnet1Ref": "[concat(variables('vnetId'),'/subnets/',parameters('subnet1Name'))]",
+    "nsgId-existing": "[resourceId(parameters('virtualNetworkExistingRGName'),'Microsoft.Network/networkSecurityGroups/')]",
+    "nsgId": "[variables(concat('nsgId-', parameters('virtualNetworkNewOrExisting')))]",
+    "nsg1Ref": "[concat(variables('nsgId'), parameters('nsg1Name'))]",
     "providerGuid": "[toUpper('7d69ff10-1a05-4353-b69d-0e87c3382e96')]",
     "storageAccountType": "Standard_LRS",
     "lbID": "[resourceId('Microsoft.Network/loadBalancers',parameters('loadBalancerName'))]"
@@ -485,6 +495,9 @@
           "subnet": {
             "value": "[variables('subnet1Ref')]"
           },
+          "nsg": {
+            "value": "[variables('nsg1Ref')]"
+          },
           "templateBaseUrl": {
             "value": "[concat(variables('templateBaseUrl'), 'nested/')]"
           },
@@ -545,6 +558,9 @@
           },
           "subnet": {
             "value": "[variables('subnet1Ref')]"
+          },
+          "nsg": {
+            "value": "[variables('nsg1Ref')]"
           },
           "templateBaseUrl": {
             "value": "[concat(variables('templateBaseUrl'), 'nested/')]"
@@ -608,6 +624,9 @@
           },
           "subnet": {
             "value": "[variables('subnet1Ref')]"
+          },
+          "nsg": {
+            "value": "[variables('nsg1Ref')]"
           },
           "templateBaseUrl": {
             "value": "[concat(variables('templateBaseUrl'), 'nested/')]"
@@ -673,6 +692,9 @@
           },
           "subnet": {
             "value": "[variables('subnet1Ref')]"
+          },
+          "nsg": {
+            "value": "[variables('nsg1Ref')]"
           },
           "templateBaseUrl": {
             "value": "[concat(variables('templateBaseUrl'), 'nested/')]"
@@ -740,6 +762,9 @@
           "subnet": {
             "value": "[variables('subnet1Ref')]"
           },
+          "nsg": {
+            "value": "[variables('nsg1Ref')]"
+          },
           "templateBaseUrl": {
             "value": "[concat(variables('templateBaseUrl'), 'nested/')]"
           },
@@ -803,6 +828,9 @@
           },
           "subnet": {
             "value": "[variables('subnet1Ref')]"
+          },
+          "nsg": {
+            "value": "[variables('nsg1Ref')]"
           },
           "templateBaseUrl": {
             "value": "[concat(variables('templateBaseUrl'), 'nested/')]"

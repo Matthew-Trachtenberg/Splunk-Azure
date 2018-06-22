@@ -32,6 +32,9 @@
     "subnet": {
       "type": "string"
     },
+    "nsg": {
+      "type": "string"
+    },
     "templateBaseUrl": {
       "type": "string"
     },
@@ -43,7 +46,6 @@
     "templateAPIVersion": "2015-01-01",
     "resourceAPIVersion": "2015-06-15",
     "splunkServerRole": "splunk_cluster_master",
-    "securityGroupName": "NSG-SN-10.164.8.0_26",
     "splunkTemplateUrl": "[concat(parameters('templateBaseUrl'), 'splunk-2disk-resources.json')]"
   },
   "resources": [
@@ -63,7 +65,7 @@
             "value": "[variables('splunkServerRole')]"
           },
           "securityGroupName": {
-            "value": "[variables('securityGroupName')]"
+            "value": "[parameters('nsg')]"
           },
           "namespace": {
             "value": "[parameters('namespace')]"

@@ -33,6 +33,9 @@
     "subnet": {
       "type": "string"
     },
+    "nsg": {
+      "type": "string"
+    },
     "templateBaseUrl": {
       "type": "string"
     },
