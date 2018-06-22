@@ -52,7 +52,6 @@
     "vmName": "[concat(parameters('namespace'), '001')]",
     "nicName": "[concat(parameters('namespace'), '001', 'nic1')]",
     "clusterMasterIp": "[parameters('machineSettings').clusterMasterIp]",
-    "securityGroupRef": "[parameters('securityGroupName')]",
     "storageReferenceName": "[concat('Microsoft.Storage/storageAccounts/', parameters('storageSettings').name, parameters('storageSettings').map[0])]",
     "storageApiVersion": "[providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]]"
   },
@@ -66,8 +65,8 @@
       },
       "location": "[parameters('location')]",
       "properties": {
-        "networkSecurityGroup": {
-          "id": "[variables('securityGroupRef')]"
+        "networkSecurityGroups": {
+          "id": "[parameters('securityGroupName')]"
         },
         "ipConfigurations": [
           {
