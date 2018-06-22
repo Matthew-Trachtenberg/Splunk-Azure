@@ -80,9 +80,10 @@
       "properties": {}
     },
     {
-      "name": "NSG-SN-10.164.8.0_26",
-      "type": "securityRules",
-      "apiVersion": "2017-10-01",
+    "apiVersion": "2017-06-01",
+    "type": "Microsoft.Network/networkSecurityGroups",
+    "name": "NSG-SN-10.164.8.0_26",
+    "location": "[parameters('location')]",
       "properties": {
         "securityRules": [
           {
