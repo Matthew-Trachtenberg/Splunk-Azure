@@ -385,9 +385,9 @@
     "vnetId-existing": "[resourceId(parameters('virtualNetworkExistingRGName'),'Microsoft.Network/virtualNetworks/',parameters('virtualNetworkName'))]",
     "vnetId": "[variables(concat('vnetId-', parameters('virtualNetworkNewOrExisting')))]",
     "subnet1Ref": "[concat(variables('vnetId'),'/subnets/',parameters('subnet1Name'))]",
-    "nsgId-existing": "[resourceId(parameters('virtualNetworkExistingRGName'),'Microsoft.Network/networkSecurityGroups/',parameters('nsg1Name'))]",
+    "nsgId-existing": "[resourceId(parameters('virtualNetworkExistingRGName'),'Microsoft.Network/networkSecurityGroup/',parameters('nsg1Name'))]",
     "nsgId": "[variables(concat('nsgId-', parameters('virtualNetworkNewOrExisting')))]",
-    "nsg1Ref": "[concat(variables('nsgId'),'/networkSecurityGroups/',parameters('nsg1Name'))]",
+    "nsg1Ref": "[concat(variables('nsgId'),'/networkSecurityGroup/',parameters('nsg1Name'))]",
     "providerGuid": "[toUpper('7d69ff10-1a05-4353-b69d-0e87c3382e96')]",
     "storageAccountType": "Standard_LRS",
     "lbID": "[resourceId('Microsoft.Network/loadBalancers',parameters('loadBalancerName'))]"
