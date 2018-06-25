@@ -854,7 +854,7 @@
       "apiVersion": "2017-06-01",
       "type": "Microsoft.Network/networkSecurityGroups",
       "name": "NSG-SN-10.164.8.0_26",
-      "location": "[resourceId(parameters('virtualNetworkExistingRGName'),'Microsoft.Network/networkSecurityGroups/', 'NSG-SN-10.164.8.0_26')]",
+      "location": "'/subscriptions/5c61db28-a6d4-4657-8c3c-e88f5bb4fe76/resourceGroups/FNF-RG-NSG-Prod",
         "properties": {
           "securityRules": [
             {
