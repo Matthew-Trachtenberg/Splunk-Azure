@@ -244,6 +244,7 @@
     "templateAPIVersion": "2015-01-01",
     "resourceAPIVersion": "2015-06-15",
     "storageAccountNamePrefix": "fnfsasplproduse20",
+    "nsglocation": "[concat(subscription().id, '/resourceGroups/', parameters('virtualNetworkExistingRGName'))]",
     "templateBaseUrl": "[concat(parameters('templateLocation'), '/')]",
     "sharedTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'shared-resources.json')]",
     "virtualNetworkTemplateUrl": "[concat(variables('templateBaseUrl'), 'nested/', 'vnet-', parameters('virtualNetworkNewOrExisting'), '.json')]",
@@ -854,7 +855,7 @@
       "apiVersion": "2017-06-01",
       "type": "Microsoft.Network/networkSecurityGroups",
       "name": "NSG-SN-10.164.8.0_26",
-      "location": "[concat(subscription().id, '/resourceGroups/', parameters('virtualNetworkExistingRGName'))]",
+      "location": "[variables('nsglocation')]",
         "properties": {
           "securityRules": [
             {
