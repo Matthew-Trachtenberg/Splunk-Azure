@@ -5,29 +5,23 @@
     "location": {
       "type": "string"
     },
-    "networkSettings": {
-      "type": "object",
+    "nsgSettings": {
+      "type": "string",
       "metadata": {
-        "description": "Network settings object"
+        "description": "nsg settings object"
       }
     },
     "providerGuid": {
       "type": "string"
     }
   },
-  "variables" : {
-    "virtualNetworkName": "[parameters('networkSettings').virtualNetworkName]",
-    "virtualNetworkExistingRGName": "[parameters('networkSettings').virtualNetworkExistingRGName]",
-    "virtualNetworkId": "[resourceId(variables('virtualNetworkExistingRGName'),'Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
-    "subnet1Name": "[parameters('networkSettings').subnet.sn.name]",
-    "subnet1Ref" : "[concat(variables('virtualNetworkId'),'/subnets/',variables('subnet1Name'))]"
- },
+  "variables" : {  },
   "resources": [
     {
         "apiVersion": "2017-05-10",
         "name": "nestedTemplate",
         "type": "Microsoft.Resources/deployments",
-        "resourceGroup": "[parameters('networkSettings').virtualNetworkExistingRGName]",
+        "resourceGroup": "[parameters('nsgSettings')]",
         "properties": {
             "mode": "Incremental",
             "template": {

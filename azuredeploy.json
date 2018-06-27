@@ -131,6 +131,13 @@
         "description": "Name of resource group of existing Virtual Network (if applicable)"
       }
     },
+    "nsgExistingRGName": {
+      "type": "string",
+      "defaultValue": "FNF-RG-NSG-Prod",
+      "metadata": {
+        "description": "Name of resource group of existing Network Security Groups (if applicable)"
+      }
+    },
     "virtualNetworkAddressPrefix": {
       "type": "string",
       "defaultValue": "10.0.0.0/8",
@@ -387,7 +394,7 @@
     "vnetId-existing": "[resourceId(parameters('virtualNetworkExistingRGName'),'Microsoft.Network/virtualNetworks/',parameters('virtualNetworkName'))]",
     "vnetId": "[variables(concat('vnetId-', parameters('virtualNetworkNewOrExisting')))]",
     "subnet1Ref": "[concat(variables('vnetId'),'/subnets/',parameters('subnet1Name'))]",
-    "nsgId-existing": "[resourceId(parameters('virtualNetworkExistingRGName'),'Microsoft.Network/networkSecurityGroups/',parameters('nsg1Name'))]",
+    "nsgId-existing": "[resourceId(parameters('nsgExistingRGName'),'Microsoft.Network/networkSecurityGroups/',parameters('nsg1Name'))]",
     "nsgId": "[variables(concat('nsgId-', parameters('virtualNetworkNewOrExisting')))]",
     "nsg1Ref": "[variables('nsgId')]",
     "providerGuid": "[toUpper('7d69ff10-1a05-4353-b69d-0e87c3382e96')]",
@@ -461,8 +468,8 @@
           "location": {
             "value": "[parameters('location')]"
           },
-          "networkSettings": {
-            "value": "[variables('networkSettings')]"
+          "nsgSettings": {
+            "value": "[parameters('nsgExistingRGName')]"
           },
           "providerGuid": {
             "value": "[variables('providerGuid')]"
