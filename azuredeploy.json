@@ -126,7 +126,7 @@
     },
     "virtualNetworkExistingRGName": {
       "type": "string",
-      "defaultValue": "FNF-RG-NSG-Prod",
+      "defaultValue": "FNF-RG-VN-Prod",
       "metadata": {
         "description": "Name of resource group of existing Virtual Network (if applicable)"
       }
