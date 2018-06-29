@@ -36,42 +36,42 @@
     },
     "clusterMasterVmSize": {
       "type": "string",
-      "defaultValue": "Standard_D3_v2",
+      "defaultValue": "Standard_DS4_v2",
       "metadata": {
         "description": "Size of cluster master VM"
       }
     },
     "deployServerVmSize": {
       "type": "string",
-      "defaultValue": "Standard_D2_v2",
+      "defaultValue": "Standard_DS2_v2",
       "metadata": {
         "description": "Size of the Deploy Server VMs"
       }
     },
     "clusterSearchheadVmSize": {
       "type": "string",
-      "defaultValue": "Standard_D3_v2",
+      "defaultValue": "Standard_DS15_v2",
       "metadata": {
         "description": "Size of cluster search head VM"
       }
     },
     "clusterIndexerVmSize": {
       "type": "string",
-      "defaultValue": "Standard_D3_v2",
+      "defaultValue": "Standard_DS15_v2",
       "metadata": {
         "description": "Size of cluster indexer VM"
       }
     },
     "LicenseVmSize": {
       "type": "string",
-      "defaultValue": "Standard_D3_v2",
+      "defaultValue": "Standard_DS2_v2",
       "metadata": {
         "description": "Size of License Server VM"
       }
     },
     "clusterIndexerVmCount": {
       "type": "int",
-      "defaultValue": 3,
+      "defaultValue": 30,
       "minValue": 3,
       "maxValue": 30,
       "metadata": {
@@ -80,28 +80,28 @@
     },
     "clusterSecret": {
       "type": "securestring",
-      "defaultValue": "Pmc8520Pmc8520",
+      "defaultValue": "clusterSecretPassword",
       "metadata": {
         "description": "Security key for authentication between cluster nodes (when applicable)"
       }
     },
     "adminUsername": {
       "type": "string",
-      "defaultValue": "vcdx244",
+      "defaultValue": "SplunkUsername",
       "metadata": {
         "description": "Username for the VMs"
       }
     },
     "adminPassword": {
       "type": "securestring",
-      "defaultValue": "Pmc8520Pmc8520",
+      "defaultValue": "adminPassword!@#$",
       "metadata": {
         "description": "Password for the VMs"
       }
     },
     "splunkAdminPassword": {
       "type": "securestring",
-      "defaultValue": "Pmc8520Pmc8520",
+      "defaultValue": "splunkAdminPassword!@#$",
       "metadata": {
         "description": "Password for Splunk admin"
       }
@@ -196,7 +196,7 @@
     },
     "domainNamePrefix": {
       "type": "string",
-      "defaultValue": "fnfsplunk",
+      "defaultValue": "splunkDomainNamePrefix",
       "metadata": {
         "description": "Prefix for domain name to access Splunk which is in the format: {prefix}.{location}.cloudapp.azure.com e.g. mysplunk.westus.cloudapp.azure.com. Prefix should match the following regular expression ^[a-z][a-z0-9-]{1,61}[a-z0-9]$ or it will raise an error."
       }
@@ -220,16 +220,16 @@
       "type": "int",
       "defaultValue": 2,
       "minValue": 1,
-      "maxValue": 30,
+      "maxValue": 2,
       "metadata": {
         "description": "Count of deploye server nodes"
       }
     },
     "searchheadVmCount": {
       "type": "int",
-      "defaultValue": 2,
+      "defaultValue": 6,
       "minValue": 1,
-      "maxValue": 30,
+      "maxValue": 6,
       "metadata": {
         "description": "Count of search head nodes"
       }
